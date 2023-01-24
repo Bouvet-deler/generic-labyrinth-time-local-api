@@ -5,7 +5,8 @@ import SubmitForm from "./SubmitForm/SubmitForm";
 
 function App() {
   const [title, setTitle] = useState("");
-  const [users, setUsers] = useState("");
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
     fetch("https://localhost:5050/GetCurrentTopListName", {
       method: "GET",
@@ -17,11 +18,15 @@ function App() {
   }, []);
 
   const fetchUsers = () => {
-    // TODO: Handle fail
     fetch("https://localhost:5050/GetCurrentTopList", {
       method: "GET",
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          return [];
+        }
+        return res.json();
+      })
       .then((res) => setUsers(res));
   };
 
