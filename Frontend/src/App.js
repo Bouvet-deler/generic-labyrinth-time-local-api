@@ -35,7 +35,7 @@ function App() {
         <h1>{title}</h1>
       </header>
       <Leaderboard users={users} />
-      <SubmitForm onSuccess={fetchUsers} />
+      <SubmitForm onSubmitted={fetchUsers} />
     </div>
   );
 }

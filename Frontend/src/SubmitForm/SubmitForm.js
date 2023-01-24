@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import Spinner from "../Components/Spinner/Spinner";
 
-const SubmitForm = ({ onSuccess }) => {
+const SubmitForm = ({ onSubmitted }) => {
   const [username, setUsername] = useState("");
   const [code, setCode] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [successfulPost, setSuccessfulPost] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //TODO: Show loading
+    setSuccessfulPost(false);
+    setLoading(true);
     fetch(`https://localhost:5050/NewCodeEntry?username=${username}&code=${code}`, {
       method: "POST",
       headers: {
@@ -15,32 +20,46 @@ const SubmitForm = ({ onSuccess }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed");
+          throw res;
         }
       })
       .then(() => {
+        setErrorMessage("");
         setUsername("");
         setCode("");
-        onSuccess();
-        // TODO: Show success messsage
+        setSuccessfulPost(true);
       })
-      .catch(() => {
-        // TODO: Show something went wrong
+      .catch((error) => {
+        error.text().then((errorText) => {
+          setErrorMessage(errorText || "Something went wrong!");
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+        onSubmitted();
       });
   };
   return (
     <article>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label>
-          Code:
-          <input type="text" value={code} onChange={(e) => setCode(e.target.value)} />
-        </label>
-        <button type="submit">Send</button>
-      </form>
+      {successfulPost && <div>Registered!</div>}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <form onSubmit={handleSubmit} id="submit-form" aria-describedby="submit-form__message">
+          {errorMessage && <p id="submit-form__message">{errorMessage}</p>}
+          <label>
+            Name:
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          </label>
+          <label>
+            Code:
+            <input type="text" value={code} onChange={(e) => setCode(e.target.value)} required />
+          </label>
+          <button type="submit" disabled={code === "" || username === ""}>
+            Send
+          </button>
+        </form>
+      )}
     </article>
   );
 };

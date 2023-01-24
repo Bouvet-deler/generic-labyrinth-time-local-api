@@ -1,18 +1,20 @@
 import React from "react";
+import "./Leaderboard.css";
 
 const Leaderboard = ({ users }) => {
   return (
     <article>
       <h2>Leaderboard</h2>
-      <dl>
+      {/* Eventuelt bruk <ol> og <li> Eventuelt table*/}
+      <ol>
         {users &&
           users.map((user) => (
-            <div key={user.name}>
-              <dt>{user.name}</dt>
-              <dd>{user.points}</dd>
-            </div>
+            <li key={user.name}>
+              <span>{user.name}</span>
+              <span>{user.points}</span>
+            </li>
           ))}
-      </dl>
+      </ol>
     </article>
   );
 };
