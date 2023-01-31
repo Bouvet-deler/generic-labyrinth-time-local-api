@@ -35,12 +35,15 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="header">
         <h1>{title}</h1>
       </header>
-      <Leaderboard users={users} />
-      <SubmitForm onSubmitted={fetchUsers} />
+      <div className="app-body">
+        <Leaderboard users={users} />
+        <SubmitForm onSubmitted={fetchUsers} />
+      </div>
+      <div className="rocks-mountains" />
     </div>
   );
 }

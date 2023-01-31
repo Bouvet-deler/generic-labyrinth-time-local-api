@@ -3,19 +3,19 @@ import "./Leaderboard.css";
 
 const Leaderboard = ({ users }) => {
   return (
-    <article>
-      <h2>Leaderboard</h2>
-      {/* Eventuelt bruk <ol> og <li> Eventuelt table*/}
+    <article className="leaderboard--wrapper">
+      <h2 className="leaderboard__header">Leaderboard</h2>
       {users && users.length > 0 ? (
-        <ol>
+        <div className="leaderboard">
           {users &&
-            users.map((user) => (
-              <li key={user.name}>
+            users.map((user, index) => (
+              <div key={user.name} className="leaderboard-item">
+                <span>{index + 1}:</span>
                 <span>{user.name}</span>
                 <span>{user.points}</span>
-              </li>
+              </div>
             ))}
-        </ol>
+        </div>
       ) : (
         <div>No registered scores</div>
       )}
