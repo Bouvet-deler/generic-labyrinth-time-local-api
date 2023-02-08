@@ -2,13 +2,13 @@ using System.Text.Json;
 
 public class Application
 {
-    public string CurrentTopListFileName { get; private set; } = "empty toplist, create a new one";
+    public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
     public List<User> CurrentToplist { get; private set; } = new();
 
     private Codes _codes = new();
     private string _path = "../Toplists/";
 
-    public IResult CreateNewTopList(string toplistName) 
+    public IResult CreateNewTopList(string toplistName)
     {
         string path = $"{_path}{toplistName}.txt";
         if (File.Exists(path)) return Results.BadRequest($"Toplist {toplistName} allready exists.");
@@ -25,7 +25,7 @@ public class Application
         }
     }
 
-    public IResult ListAllTopLists() 
+    public IResult ListAllTopLists()
     {
         try
         {
@@ -40,7 +40,7 @@ public class Application
         }
     }
 
-    public async Task<IResult> LoadTopListAsync(string toplistName) 
+    public async Task<IResult> LoadTopListAsync(string toplistName)
     {
         string path = $"{_path}{toplistName}.txt";
         if (!File.Exists(path)) return Results.BadRequest($"Toplist {toplistName} does not exists.");
@@ -71,7 +71,7 @@ public class Application
             if (user == null)
             {
                 if (userName.Length < 2 || userName.Length > 10) return Results.BadRequest("Username must be between 2 and 10 letters.");
-                user =  new User(upperUserName);
+                user = new User(upperUserName);
                 CurrentToplist.Add(user);
             }
 
@@ -108,7 +108,7 @@ public class Application
         {
             string path = $"{_path}{CurrentTopListFileName}.txt";
 
-            JsonSerializerOptions options = new(){ WriteIndented = true };
+            JsonSerializerOptions options = new() { WriteIndented = true };
 
             string jsonString = JsonSerializer.Serialize(CurrentToplist);
             await File.WriteAllTextAsync(path, jsonString);

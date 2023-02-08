@@ -1,0 +1,1 @@
+[{"Name":"JOPPE","Points":100,"Codes":["EAPVLC"]},{"Name":"ERIKA","Points":200,"Codes":["EAPVLC","DLHOAY"]},{"Name":"HILMAR","Points":100,"Codes":["EAPVLC"]}]

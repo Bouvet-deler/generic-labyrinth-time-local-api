@@ -1,0 +1,63 @@
+@font-face {
+    font-family: StarWars;
+    src: url(../public/fonts/Starjedi.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: StarWarsHollow;
+    src: url(../public/fonts/Starjhol.ttf) format("truetype");
+}
+
+
+body {
+    background: linear-gradient(180deg, #E0991D 0%, #E0A193 102.2%) no-repeat;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 32px;
+    padding-top: 10vh;
+    font-family: StarWars;
+    font-weight: 400;
+}
+
+button {
+    font-family: StarWars;
+
+}
+
+.app {
+    width: 800px;
+    margin: 0 auto;
+    color: white;
+}
+
+.app-body {
+    padding-top: 24px;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.header {
+    text-align: center;
+    font-size: large;
+    width: 100%;
+    font-kerning: auto;
+    color: black;
+}
+
+.rocks-mountains {
+    background-image: url('../public/background.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position: bottom;
+    background-position-y: 1rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    width: 100vw;
+    height: 30vh;
+    margin: 0 auto;
+    z-index: -1;
+}
