@@ -8,7 +8,7 @@ const Leaderboard = ({ users }) => {
       {users && users.length > 0 ? (
         <div className="leaderboard">
           {users &&
-            users.map((user, index) => (
+            users.slice(0, 10).map((user, index) => (
               <div key={user.name} className="leaderboard-item">
                 <span>{index + 1}:</span>
                 <span>{user.name}</span>

@@ -8,7 +8,6 @@
     src: url(../public/fonts/Starjhol.ttf) format("truetype");
 }
 
-
 body {
     background: linear-gradient(180deg, #E0991D 0%, #E0A193 102.2%) no-repeat;
     height: 100vh;
@@ -16,13 +15,12 @@ body {
     box-sizing: border-box;
     padding: 32px;
     padding-top: 10vh;
-    font-family: StarWars;
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
 
 button {
     font-family: StarWars;
-
 }
 
 .app {
@@ -42,6 +40,7 @@ button {
     width: 100%;
     font-kerning: auto;
     color: black;
+    font-family: StarWars;
 }
 
 .rocks-mountains {
