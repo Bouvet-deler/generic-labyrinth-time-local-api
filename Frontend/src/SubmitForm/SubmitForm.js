@@ -4,7 +4,7 @@ import "./SubmitForm.css";
 
 const SubmitForm = ({ onSubmitted }) => {
   const [username, setUsername] = useState("");
-  const [code, setCode] = useState("");
+  const [time, setTime] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [successfulPost, setSuccessfulPost] = useState(false);
@@ -14,7 +14,7 @@ const SubmitForm = ({ onSubmitted }) => {
     setSuccessfulPost(false);
     setErrorMessage("");
     setLoading(true);
-    fetch(`https://localhost:5050/NewCodeEntry?username=${username}&code=${code}`, {
+    fetch(`https://localhost:5050/NewTimeEntry?username=${username}&time=${time}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ const SubmitForm = ({ onSubmitted }) => {
       .then(() => {
         setErrorMessage("");
         setUsername("");
-        setCode("");
+        setTime("");
         setSuccessfulPost(true);
       })
       .catch((error) => {
@@ -47,8 +47,8 @@ const SubmitForm = ({ onSubmitted }) => {
     setUsername(e.target.value);
   };
 
-  const handleCodeChange = (e) => {
-    setCode(e.target.value);
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
   };
 
   return (
@@ -68,8 +68,8 @@ const SubmitForm = ({ onSubmitted }) => {
             />
           </fieldset>
           <fieldset className="submit-form__fieldset">
-            <label className="submit-form__label">Code</label>
-            <input className="submit-form__input" type="text" value={code} onChange={handleCodeChange} required />
+            <label className="submit-form__label">Time</label>
+            <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required />
           </fieldset>
           {errorMessage && (
             <p className="submit-form__error" id="submit-form__message">
@@ -77,7 +77,7 @@ const SubmitForm = ({ onSubmitted }) => {
             </p>
           )}
           {successfulPost && <p className="submit-form__success">Registered!</p>}
-          <button type="submit" disabled={code === "" || username === ""} className="submit-form__submit">
+          <button type="submit" disabled={time === "" || username === ""} className="submit-form__submit">
             Send
           </button>
         </form>

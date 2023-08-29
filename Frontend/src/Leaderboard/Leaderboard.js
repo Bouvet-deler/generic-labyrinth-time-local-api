@@ -12,7 +12,7 @@ const Leaderboard = ({ users }) => {
               <div key={user.name} className="leaderboard-item">
                 <span>{index + 1}:</span>
                 <span>{user.name}</span>
-                <span>{user.points}</span>
+                <span>{user.time}</span>
               </div>
             ))}
         </div>
