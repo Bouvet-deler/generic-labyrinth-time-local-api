@@ -1,1 +1,0 @@
-[{"Name":"OLA","Points":100,"Codes":["XLWNPS"]},{"Name":"BENGT","Points":100,"Codes":["XLWNPS"]}]
