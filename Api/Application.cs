@@ -5,7 +5,6 @@ public class Application
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
     public List<User> CurrentToplist { get; private set; } = new();
 
-    private Codes _codes = new();
     private string _path = "../Toplists/";
 
     public IResult CreateNewTopList(string toplistName)
@@ -58,7 +57,7 @@ public class Application
         }
     }
 
-    public async Task<IResult> NewCodeEntry(string userName, string code)
+    public async Task<IResult> NewTimeEntry(string userName, double time)
     {
         try
         {
@@ -75,15 +74,8 @@ public class Application
                 CurrentToplist.Add(user);
             }
 
-            // check code validity
-            int points = CheckCodeValidity(user, code);
-
-            if (points == 0) return Results.BadRequest($"{code} is not a valid code.");
-            if (points == int.MinValue) return Results.BadRequest($"User {upperUserName} has allready recived points for {code}");
-
             // assign points to user
-            user.Codes.Add(code);
-            user.Points += points;
+            user.Time = time;
 
             // save state
             return await SaveState();
@@ -94,14 +86,6 @@ public class Application
         }
     }
 
-    private int CheckCodeValidity(User user, string code)
-    {
-        if (user.Codes.Contains(code)) return int.MinValue;
-        if (!_codes.SixLetterCodeList.Contains(code)) return 0;
-
-        return 100;
-    }
-
     private async Task<IResult> SaveState()
     {
         try
@@ -110,7 +94,7 @@ public class Application
 
             JsonSerializerOptions options = new() { WriteIndented = true };
 
-            string jsonString = JsonSerializer.Serialize(CurrentToplist);
+            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList());
             await File.WriteAllTextAsync(path, jsonString);
 
             return Results.Ok();

@@ -10,7 +10,7 @@ public static class Controllers
 
         app.MapGet("/GetCurrentTopList", IResult (Application application) =>
         {
-            return Results.Ok(application.CurrentToplist.OrderByDescending(x => x.Points).ToList());
+            return Results.Ok(application.CurrentToplist.OrderBy(x => x.Time).ToList());
         }).Produces<List<User>>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
@@ -32,9 +32,9 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/NewCodeEntry", async (string username, string code, Application application) =>
+        app.MapPost("/NewTimeEntry", async (string username, double time, Application application) =>
         {
-            return await application.NewCodeEntry(username, code);
+            return await application.NewTimeEntry(username, time);
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
