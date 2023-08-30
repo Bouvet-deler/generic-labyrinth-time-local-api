@@ -90,46 +90,48 @@ const SubmitForm = ({ onSubmitted }) => {
         <Spinner />
       ) : (
         <form className="submit-form" onSubmit={handleSubmit} id="submit-form" aria-describedby="submit-form__message">
-          <fieldset className="submit-form__fieldset">
-            <ul>
-              <li>
-                <label className="submit-form__label">Name</label>
-                <input className="submit-form__input" type="text" value={username} onChange={handleUserNameChange} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Time</label>
-                <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Email</label>
-                <input className="submit-form__input" type="text" value={email} onChange={handleEmailChange} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Phone number</label>
-                <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
-              </li>
-            </ul>
-          </fieldset>
-          <fieldset className="submit-form__fieldset">
-            <ul>
-              <li>
-                <label className="submit-form__label">Name</label>
-                <input className="submit-form__input" type="text" value={username2} onChange={handleUserNameChange2} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Time</label>
-                <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Email</label>
-                <input className="submit-form__input" type="text" value={email2} onChange={handleEmailChange2} required />
-              </li>
-              <li>
-                <label className="submit-form__label">Phone number</label>
-                <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
-              </li>
-            </ul>
-          </fieldset>
+          <div className="submit-form__fieldset-container">
+            <fieldset className="submit-form__fieldset">
+              <ul className="submit-form__ul">
+                <li>
+                  <label className="submit-form__label">Name</label>
+                  <input className="submit-form__input" type="text" value={username} onChange={handleUserNameChange} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Time</label>
+                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Email</label>
+                  <input className="submit-form__input" type="text" value={email} onChange={handleEmailChange} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Phone number</label>
+                  <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+                </li>
+              </ul>
+            </fieldset>
+            <fieldset className="submit-form__fieldset">
+              <ul className="submit-form__ul">
+                <li>
+                  <label className="submit-form__label">Name</label>
+                  <input className="submit-form__input" type="text" value={username2} onChange={handleUserNameChange2} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Time</label>
+                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Email</label>
+                  <input className="submit-form__input" type="text" value={email2} onChange={handleEmailChange2} required />
+                </li>
+                <li>
+                  <label className="submit-form__label">Phone number</label>
+                  <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
+                </li>
+              </ul>
+            </fieldset>
+          </div>
           {errorMessage && (
             <p className="submit-form__error" id="submit-form__message">
               {errorMessage}
