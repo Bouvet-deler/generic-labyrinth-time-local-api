@@ -1,6 +1,6 @@
 .submit-form__wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     color: white;
     width: 30rem;
     justify-content: center;
@@ -9,18 +9,16 @@
     margin: 0 auto;
 }
 
-
 .submit-form {
+    padding-top: 50px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 }
 
 .submit-form__fieldset {
     border: none;
-    display: flex;
-    flex-direction: column;
-    margin: 8px 0;
+    margin: 0;
     padding: 0;
 }
 
@@ -45,8 +43,12 @@
 }
 
 .submit-form__submit {
+    position: fixed;
+    top: 800px;
+    left: 1000px;
     margin-top: 8px;
     align-self: flex-end;
+    flex-direction: column;
     background-color: #4c6f9b;
     color: white;
     border: none;
