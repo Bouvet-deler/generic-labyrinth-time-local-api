@@ -17,7 +17,7 @@ const Leaderboard = ({ users }) => {
             ))}
         </div>
       ) : (
-        <div>No registered scores</div>
+        <div className="no_scores_container">No registered scores</div>
       )}
     </article>
   );
