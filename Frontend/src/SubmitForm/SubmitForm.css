@@ -9,6 +9,10 @@
     margin: 0 auto;
 }
 
+button {
+    font-family: InterRegular;
+}
+
 /* input fields: */
 .submit-form {
     /* padding-top: 50px; */

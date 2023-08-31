@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
 import "./SubmitForm.css";
 
@@ -119,12 +119,12 @@ const SubmitForm = ({ onSubmitted }) => {
   const handlePhoneNumberChange2 = (e) => {
     setPhoneNumber2(e.target.value);
   }
-  console.log(isSubmittingForm)
+
   return (
     <article className="submit-form__wrapper">
       {loading ? (
         <Spinner />
-      ) : (!isSubmittingForm ? <button onClick={handleTime}>Submit form</button> : (
+      ) : (!isSubmittingForm ? <button className="submit-form__submit" onClick={handleTime}>Submit form</button> : (
         <form className="submit-form" onSubmit={handleSubmit} id="submit-form" aria-describedby="submit-form__message">
           <div className="submit-form__fieldset-container">
             <fieldset className="submit-form__fieldset">
