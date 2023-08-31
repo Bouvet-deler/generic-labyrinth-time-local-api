@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+
 .leaderboard--wrapper {
     margin: 0 auto;
     width: auto;
@@ -5,13 +7,21 @@
 }
 
 .leaderboard__header {
+    text-align: center;
     color: #ffff33;
     font-size: 42px;
     margin: 0;
     font-weight: 500;
     margin-bottom: 20px;
     margin: 0 auto;
-    font-family: InterRegular;
+    /* font-family: InterRegular; */
+    margin-bottom: 1rem;
+    font-family: 'Rubik Mono One', sans-serif;
+}
+
+.no_scores_container {
+    text-align: center;
+    margin-bottom: 1rem;
 }
 
 .leaderboard {
