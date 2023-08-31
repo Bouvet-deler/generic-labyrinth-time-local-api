@@ -44,7 +44,7 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/EndTime", string (Application application) =>
+        app.MapGet("/EndTime", string (Application application) =>
         {
             return application.EndTime();
         }).Produces<string>(StatusCodes.Status200OK)
@@ -56,7 +56,7 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/EndTime2", string (Application application) =>
+        app.MapGet("/EndTime2", string (Application application) =>
         {
             return application.EndTime2();
         }).Produces<string>(StatusCodes.Status200OK)

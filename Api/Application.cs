@@ -96,9 +96,6 @@ public class Application
             user2.Email = email2;
             user2.PhoneNumber = phoneNumber2;
 
-            stopwatch.Reset();
-            stopwatch2.Reset();
-
             // save state
             return await SaveState();
         }
@@ -110,6 +107,7 @@ public class Application
 
     public void StartTime()
     {
+        stopwatch.Reset();
         stopwatch.Start();
     }
 
@@ -123,6 +121,7 @@ public class Application
 
     public void StartTime2()
     {
+        stopwatch2.Reset();
         stopwatch2.Start();
     }
 
