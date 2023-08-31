@@ -38,25 +38,19 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/StartTime", void (Application application) =>
+        app.MapGet("/StartTime", void (Application application) =>
         {
             application.StartTime();
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapGet("/EndTime", string (Application application) =>
+        app.MapGet("/EndTime", bool (Application application) =>
         {
             return application.EndTime();
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/StartTime2", void (Application application) =>
-        {
-            application.StartTime2();
-        }).Produces<string>(StatusCodes.Status200OK)
-          .Produces<string>(StatusCodes.Status400BadRequest);
-
-        app.MapGet("/EndTime2", string (Application application) =>
+        app.MapGet("/EndTime2", bool (Application application) =>
         {
             return application.EndTime2();
         }).Produces<string>(StatusCodes.Status200OK)

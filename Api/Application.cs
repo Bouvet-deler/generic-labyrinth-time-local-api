@@ -11,6 +11,12 @@ public class Application
     
     Stopwatch stopwatch2 = new Stopwatch();
 
+    bool runStart = false;
+
+    bool runStop = false;
+
+    bool runStop2 = false;
+
     private string _path = "../Toplists/";
 
     public IResult CreateNewTopList(string toplistName)
@@ -88,13 +94,15 @@ public class Application
                 CurrentToplist.Add(user2);
             }
 
-            user.Time = EndTime();
             user.Email = email;
             user.PhoneNumber = phoneNumber;
 
-            user2.Time = EndTime2();
             user2.Email = email2;
             user2.PhoneNumber = phoneNumber2;
+
+            runStart = false;
+            runStop = false;
+            runStop2 = false;
 
             // save state
             return await SaveState();
@@ -105,32 +113,34 @@ public class Application
         }
     }
 
-    public void StartTime()
+    public bool StartTime()
     {
-        stopwatch.Reset();
-        stopwatch.Start();
+        return runStart;
     }
 
-    public string EndTime()
+    public bool EndTime()
     {
-        stopwatch.Stop();
-        string runTime = stopwatch.Elapsed.ToString("mm\\:ss\\.fffff");
-        return runTime;
-        
+        return runStop;   
     }
 
-    public void StartTime2()
+    public bool EndTime2()
     {
-        stopwatch2.Reset();
-        stopwatch2.Start();
+        return runStop2;
     }
 
-    public string EndTime2()
+    public void setStartTime()
     {
-        stopwatch2.Stop();
-        string runTime2 = stopwatch2.Elapsed.ToString("mm\\:ss\\.fffff");
-        return runTime2;
+        runStart = true;
+    }
 
+    public void setStopTime()
+    {
+        runStop = true;
+    }
+
+    public void setStopTime2()
+    {
+        runStop2 = true;
     }
 
     private async Task<IResult> SaveState()
