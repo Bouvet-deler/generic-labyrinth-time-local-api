@@ -32,9 +32,33 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/NewTimeEntry", async (string username, double time, Application application) =>
+        app.MapPost("/NewTimeEntry", async (string username, string email, int phoneNumber, string username2, string email2, int phoneNumber2, Application application) =>
         {
-            return await application.NewTimeEntry(username, time);
+            return await application.NewTimeEntry(username, email, phoneNumber, username2, email2, phoneNumber2);
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapPost("/StartTime", void (Application application) =>
+        {
+            application.StartTime();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapGet("/EndTime", string (Application application) =>
+        {
+            return application.EndTime();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapPost("/StartTime2", void (Application application) =>
+        {
+            application.StartTime2();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapGet("/EndTime2", string (Application application) =>
+        {
+            return application.EndTime2();
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 

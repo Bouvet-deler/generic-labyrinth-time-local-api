@@ -1,11 +1,16 @@
 @font-face {
-    font-family: StarWars;
-    src: url(../public/fonts/Starjedi.ttf) format("truetype");
+    font-family: InterRegular;
+    src: url(../public/fonts/Inter-Regular.ttf) format("truetype");
 }
 
 @font-face {
-    font-family: StarWarsHollow;
-    src: url(../public/fonts/Starjhol.ttf) format("truetype");
+    font-family: InterExtraBold;
+    src: url(../public/fonts/Inter-ExtraBold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: InterBold;
+    src: url(../public/fonts/Inter-Bold.ttf) format("truetype");
 }
 
 body {
@@ -15,32 +20,39 @@ body {
     box-sizing: border-box;
     padding: 32px;
     padding-top: 10vh;
-    font-family: 'Roboto', sans-serif;
+    font-family: InterRegular;
     font-weight: 400;
 }
 
 button {
-    font-family: StarWars;
+    font-family: InterRegular;
 }
 
 .app {
+    height: auto;
     width: 800px;
     margin: 0 auto;
     color: white;
 }
 
 .app-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
     padding-top: 24px;
+    padding-bottom: 24px;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
 .header {
     text-align: center;
-    font-size: large;
+    font-size: xx-large;
     width: 100%;
     font-kerning: auto;
     color: black;
-    font-family: StarWars;
+    font-family: InterBold;
 }
 
 .rocks-mountains {
