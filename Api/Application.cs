@@ -142,6 +142,11 @@ public class Application
     {
         runStop2 = true;
     }
+    public void simulateStartTime()
+    {
+        runStop = true;
+    }
+
 
     private async Task<IResult> SaveState()
     {
