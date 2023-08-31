@@ -28,9 +28,8 @@ function Stopwatch() {
         let text = await new Response(res.body).text();
         if(text === "true"){
          // if (!this.running) {
-            this.startTime = Date.now() - this.startTime;
-            this.running = true;
-            this.updateDisplay();
+          setStartTime(Date.now() - elapsedTime);
+          setRunning(true);
           //}
         }
       })
