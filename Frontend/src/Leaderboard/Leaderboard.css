@@ -11,13 +11,12 @@
     font-weight: 500;
     margin-bottom: 20px;
     margin: 0 auto;
-    font-family: InterRegular;
+    font-family: StarWars;
 }
 
 .leaderboard {
     padding-left: 0;
     padding-top: 16px;
-    padding-bottom: 25px;
 }
 
 .leaderboard-item {

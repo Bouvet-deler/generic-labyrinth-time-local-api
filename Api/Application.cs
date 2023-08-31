@@ -1,15 +1,9 @@
-using System.Diagnostics;
 using System.Text.Json;
 
 public class Application
 {
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
-    
     public List<User> CurrentToplist { get; private set; } = new();
-
-    Stopwatch stopwatch = new Stopwatch();
-    
-    Stopwatch stopwatch2 = new Stopwatch();
 
     private string _path = "../Toplists/";
 
@@ -63,16 +57,14 @@ public class Application
         }
     }
 
-    public async Task<IResult> NewTimeEntry(string userName, string email, int phoneNumber, string userName2, string email2, int phoneNumber2)
+    public async Task<IResult> NewTimeEntry(string userName, double time)
     {
         try
         {
             string upperUserName = userName.ToUpper();
-            string upperUserName2 = userName2.ToUpper();
 
             // check if user exists 
             User? user = CurrentToplist.Find(u => u.Name.Equals(upperUserName));
-            User? user2 = CurrentToplist.Find(u => u.Name.Equals(upperUserName2));
 
             // create user if it dosen't exists
             if (user == null)
@@ -81,20 +73,9 @@ public class Application
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
             }
-            if (user2 == null)
-            {
-                if (userName2.Length < 2 || userName2.Length > 10) return Results.BadRequest("Username must be between 2 and 10 letters.");
-                user2 = new User(upperUserName2);
-                CurrentToplist.Add(user2);
-            }
 
-            user.Time = EndTime();
-            user.Email = email;
-            user.PhoneNumber = phoneNumber;
-
-            user2.Time = EndTime2();
-            user2.Email = email2;
-            user2.PhoneNumber = phoneNumber2;
+            // assign points to user
+            user.Time = time;
 
             // save state
             return await SaveState();
@@ -103,34 +84,6 @@ public class Application
         {
             return Results.Problem(ex.Message);
         }
-    }
-
-    public void StartTime()
-    {
-        stopwatch.Reset();
-        stopwatch.Start();
-    }
-
-    public string EndTime()
-    {
-        stopwatch.Stop();
-        string runTime = stopwatch.Elapsed.ToString("mm\\:ss\\.fffff");
-        return runTime;
-        
-    }
-
-    public void StartTime2()
-    {
-        stopwatch2.Reset();
-        stopwatch2.Start();
-    }
-
-    public string EndTime2()
-    {
-        stopwatch2.Stop();
-        string runTime2 = stopwatch2.Elapsed.ToString("mm\\:ss\\.fffff");
-        return runTime2;
-
     }
 
     private async Task<IResult> SaveState()
