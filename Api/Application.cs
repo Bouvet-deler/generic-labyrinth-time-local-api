@@ -144,7 +144,7 @@ public class Application
     }
     public void simulateStartTime()
     {
-        runStop = true;
+        runStart = true;
     }
 
 

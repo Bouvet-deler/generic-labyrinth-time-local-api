@@ -38,9 +38,9 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapGet("/StartTime", void (Application application) =>
+        app.MapGet("/StartTime", bool (Application application) =>
         {
-            application.StartTime();
+            return application.StartTime();
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
@@ -61,6 +61,13 @@ public static class Controllers
             application.simulateStartTime();
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
+
+
+        app.MapGet("/simulateEndTime", void (Application application) =>
+        {
+            application.setStopTime();
+        }).Produces<string>(StatusCodes.Status200OK)
+  .Produces<string>(StatusCodes.Status400BadRequest);
 
         return app;
     }
