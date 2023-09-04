@@ -67,7 +67,7 @@ public class HardwereBackgroundService : BackgroundService
 
 
             // if (a == "Sensor2" && sensor1_har_startet == true)
-            if (a == "Sensor2")
+            if (a == "s")
             {  // tiden skal stoppe
 
                 Console.WriteLine("Sensor har registrert ball");
