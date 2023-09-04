@@ -58,7 +58,7 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
                 sensor1_har_startet = true;
-                //  _application.setStartTime(); 
+                _application.setStartTime();
             }
 
 
@@ -81,8 +81,9 @@ public class HardwereBackgroundService : BackgroundService
                 if (teller_ball == 1)
                 {
                     tid_spiller1 = elapsedTime;
+                    _application.setStopTime();
                     //    _application.setStopTime();
-                    Thread.Sleep(15);
+                 //   Thread.Sleep(15);
                 }
                 else if (teller_ball == 2)
                 {
@@ -90,8 +91,11 @@ public class HardwereBackgroundService : BackgroundService
                     //      _application.setStopTime2();
                     TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
                     TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
+                    _application.setStopTime2();
                     _application.setTheTime(tsPlayer1, tsPlayer2);
-                    Thread.Sleep(15);
+
+
+                   // Thread.Sleep(15);
                     // restart = true;
                 }
 

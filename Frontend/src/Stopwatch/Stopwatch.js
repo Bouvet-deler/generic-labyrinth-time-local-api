@@ -22,7 +22,7 @@ function Stopwatch() {
   const start = async () => {
     let started = false;
     while(!started){
-    await new Promise(r => setTimeout(r, 1000));
+    await new Promise(r => setTimeout(r, 500));
     fetch("https://localhost:5050/StartTime", {
       method: "GET",
     })
