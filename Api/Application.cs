@@ -148,7 +148,7 @@ public class Application
     }
     public void simulateStartTime()
     {
-        runStop = true;
+        runStart = true;
     }
 
     public void setTheTime(TimeSpan timePlayer1, TimeSpan timePlayer2)

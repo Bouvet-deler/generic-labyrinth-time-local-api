@@ -11,6 +11,7 @@ function Stopwatch() {
       timer = setInterval(() => {
         const currentTime = Date.now() - startTime;
         setElapsedTime(currentTime);
+        //console.log(currentTime);
       }, 10); // Update every 10 milliseconds
     } else {
       clearInterval(timer);
@@ -19,25 +20,52 @@ function Stopwatch() {
   }, [running, startTime]);
 
   const start = async () => {
-    while((true)){
+    let started = false;
+    while(!started){
     await new Promise(r => setTimeout(r, 1000));
+    fetch("https://localhost:5050/StartTime", {
+      method: "GET",
+    })
+      .then(async (res) => {
+        let text = await new Response(res.body).text();
+        if(started === true){
+          return;
+        }
+        if(text === "true"){
+            started = true;
+            setStartTime(Date.now() - elapsedTime);
+            setRunning(true);
+            getEnd();
+        }
+      })
+    
+  }};
+
+  const getEnd = async () => {
+    let ended = false;
+    while(!ended){
+    await new Promise(r => setTimeout(r, 500));
     fetch("https://localhost:5050/EndTime", {
       method: "GET",
     })
       .then(async (res) => {
         let text = await new Response(res.body).text();
+        if(ended === true){
+          return;
+        }
         if(text === "true"){
-         // if (!this.running) {
-          setStartTime(Date.now() - elapsedTime);
-          setRunning(true);
-          //}
+            ended = true;
+            setRunning(false);
+            console.log(elapsedTime);
         }
       })
     
   }};
 
 
+
   const stop = () => {
+    console.log(running);
     if (running) {
       setRunning(false);
     }
