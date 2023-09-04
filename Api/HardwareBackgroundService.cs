@@ -28,6 +28,7 @@ public class HardwereBackgroundService : BackgroundService
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
         Stopwatch stopWatch1 = new Stopwatch();
+        Stopwatch stopWatch2 = new Stopwatch();
 
         bool sensor1_har_startet = false;
         bool sensor2_har_startet = false;
@@ -37,7 +38,9 @@ public class HardwereBackgroundService : BackgroundService
         bool restart = false;
         bool time_return = false;
         TimeSpan ts;
+        TimeSpan ts2;
         string elapsedTime = null;
+        string elapsedTime2 = null;
         const bool retart = false; // MÅ FIKSES
 
         while (!stoppingToken.IsCancellationRequested)
@@ -62,6 +65,7 @@ public class HardwereBackgroundService : BackgroundService
 
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
+                stopWatch2.Start();
                 sensor1_har_startet = true;
                 _application.setStartTime();
             }
@@ -76,10 +80,11 @@ public class HardwereBackgroundService : BackgroundService
                 // stopWatch1.Stop();
 
                 ts = stopWatch1.Elapsed;
+                ts2 = stopWatch2.Elapsed;
                 // Format and display the TimeSpan value.
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
+                elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts2.Hours, ts2.Minutes, ts2.Seconds,
+                    ts2.Milliseconds / 10);
 
 
                 teller_ball += 1;
@@ -98,11 +103,10 @@ public class HardwereBackgroundService : BackgroundService
             }
             else if (teller_ball == 2 && sensor2_har_startet)
             {
-                tid_spiller2 = elapsedTime;
-                //      _application.setStopTime2();
+                tid_spiller2 = elapsedTime2;
+                _application.setStopTime2();
                 TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
                 TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
-                _application.setStopTime2();
                 _application.setTheTime(tsPlayer1, tsPlayer2);
                 time_return = true;
                 Console.WriteLine(tid_spiller1);
