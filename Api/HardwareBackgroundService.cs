@@ -38,6 +38,7 @@ public class HardwereBackgroundService : BackgroundService
         bool time_return = false;
         TimeSpan ts;
         string elapsedTime = null;
+        const bool retart = false; // MÅ FIKSES
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -123,7 +124,7 @@ public class HardwereBackgroundService : BackgroundService
 
 
 
-            if (a == "Restart")
+            if (retart == true)
             {
                 Console.WriteLine("Restart");
                 stopWatch1.Reset();
