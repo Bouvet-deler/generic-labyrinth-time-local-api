@@ -25,15 +25,19 @@ public class HardwereBackgroundService : BackgroundService
     {
         _serialPort = new SerialPort();
         _serialPort.PortName = "COM3";//Set your board COM
-        _serialPort.BaudRate = 9600;
+        _serialPort.BaudRate = 115200;
         _serialPort.Open();
         Stopwatch stopWatch1 = new Stopwatch();
 
         bool sensor1_har_startet = false;
+        bool sensor2_har_startet = false;
         int teller_ball = 0;
         string tid_spiller1 = null;
         string tid_spiller2 = null;
         bool restart = false;
+        bool time_return = false;
+        TimeSpan ts;
+        string elapsedTime = null;
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -70,40 +74,55 @@ public class HardwereBackgroundService : BackgroundService
                 //Console.WriteLine(a);
                 // stopWatch1.Stop();
 
-                TimeSpan ts = stopWatch1.Elapsed;
+                ts = stopWatch1.Elapsed;
                 // Format and display the TimeSpan value.
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
 
 
                 teller_ball += 1;
-                if (teller_ball == 1)
-                {
-                    tid_spiller1 = elapsedTime;
-                    _application.setStopTime();
-                    //    _application.setStopTime();
-                 //   Thread.Sleep(15);
-                }
-                else if (teller_ball == 2)
-                {
-                    tid_spiller2 = elapsedTime;
-                    //      _application.setStopTime2();
-                    TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
-                    TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
-                    _application.setStopTime2();
-                    _application.setTheTime(tsPlayer1, tsPlayer2);
+                sensor2_har_startet = true;
 
-
-                   // Thread.Sleep(15);
-                    // restart = true;
-                }
-
-                Console.WriteLine(tid_spiller1);
-                Console.WriteLine(tid_spiller2);
 
 
             }
+
+            if (teller_ball == 1 && sensor2_har_startet)
+            {
+                tid_spiller1 = elapsedTime;
+                _application.setStopTime();
+                //    _application.setStopTime();
+                //   Thread.Sleep(15);
+            }
+            else if (teller_ball == 2 && sensor2_har_startet)
+            {
+                tid_spiller2 = elapsedTime;
+                //      _application.setStopTime2();
+                TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
+                TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
+                _application.setStopTime2();
+                _application.setTheTime(tsPlayer1, tsPlayer2);
+                time_return = true;
+                Console.WriteLine(tid_spiller1);
+                Console.WriteLine(tid_spiller2);
+                sensor2_har_startet = false;
+
+                // Thread.Sleep(15);
+                // restart = true;
+            }
+
+            /*
+            if (teller_ball == 2 && time_return)
+            {
+               // Console.WriteLine(tid_spiller1);
+                Console.WriteLine(tid_spiller2);
+            }
+
+            */
+
+
+
             if (a == "Restart")
             {
                 Console.WriteLine("Restart");
@@ -112,7 +131,9 @@ public class HardwereBackgroundService : BackgroundService
                 teller_ball = 0;
                 tid_spiller1 = null;
                 tid_spiller2 = null;
-
+                sensor2_har_startet = false;
+                elapsedTime = null;
+                time_return = false;
             }
         }
     }
