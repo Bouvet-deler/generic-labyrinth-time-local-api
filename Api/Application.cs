@@ -1,3 +1,5 @@
+using generic_high_score_local_api;
+using System;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -7,15 +9,15 @@ public class Application
     
     public List<User> CurrentToplist { get; private set; } = new();
 
-    Stopwatch stopwatch = new Stopwatch();
-    
-    Stopwatch stopwatch2 = new Stopwatch();
-
     bool runStart = false;
 
     bool runStop = false;
 
     bool runStop2 = false;
+
+    string time_span1;
+
+    string time_span2;
 
     private string _path = "../Toplists/";
 
@@ -94,9 +96,11 @@ public class Application
                 CurrentToplist.Add(user2);
             }
 
+            user.Time = time_span1;
             user.Email = email;
             user.PhoneNumber = phoneNumber;
 
+            user2.Time = time_span2;
             user2.Email = email2;
             user2.PhoneNumber = phoneNumber2;
 
@@ -147,6 +151,21 @@ public class Application
         runStart = true;
     }
 
+    public void setTheTime(TimeSpan timePlayer1, TimeSpan timePlayer2)
+    {
+        time_span1 = timePlayer1.ToString("mm':'ss':'fff");
+        time_span2 = timePlayer2.ToString("mm':'ss':'fff");
+    }
+
+    public string sendTimePlayer1()
+    {
+        return time_span1;
+    }
+
+    public string sendTimePlayer2()
+    {
+        return time_span2;
+    }
 
     private async Task<IResult> SaveState()
     {

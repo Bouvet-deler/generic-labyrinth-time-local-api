@@ -61,7 +61,7 @@ const SubmitForm = ({ onSubmitted }) => {
   };
 
   const handleAutofillTime = () => {
-    fetch('https://localhost:5050/EndTime')
+    fetch('https://localhost:5050/sendTimePlayer1')
       .then(async (res) => {
         if (!res.ok) {
           throw res;
@@ -74,7 +74,7 @@ const SubmitForm = ({ onSubmitted }) => {
   };
 
   const handleAutofillTime2 = () => {
-    fetch('https://localhost:5050/EndTime2')
+    fetch('https://localhost:5050/sendTimePlayer2')
       .then(async (res) => {
         if (!res.ok) {
           throw res;

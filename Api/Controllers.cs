@@ -62,8 +62,20 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-
-        app.MapGet("/simulateEndTime", void (Application application) =>
+        app.MapGet("/sendTimePlayer1", string (Application application) =>
+        {
+            return application.sendTimePlayer1();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+        
+        app.MapGet("/sendTimePlayer2", string (Application application) =>
+        {
+            return application.sendTimePlayer2();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+      
+      
+              app.MapGet("/simulateEndTime", void (Application application) =>
         {
             application.setStopTime();
         }).Produces<string>(StatusCodes.Status200OK)

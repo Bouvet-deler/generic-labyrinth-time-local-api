@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Leaderboard from "./Leaderboard/Leaderboard";
 import SubmitForm from "./SubmitForm/SubmitForm";
+import Stopwatch from "./Stopwatch/Stopwatch";
 
 function App() {
   const [title, setTitle] = useState("");
