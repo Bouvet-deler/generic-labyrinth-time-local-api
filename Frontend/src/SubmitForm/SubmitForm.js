@@ -137,15 +137,15 @@ const SubmitForm = ({ onSubmitted }) => {
                 </li>
                 <li>
                   <label className="submit-form__label">Time:</label>
-                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required placeholder="00:00" />
+                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required readOnly placeholder="00:00:000" />
                 </li>
                 <li>
                   <label className="submit-form__label">Email:</label>
-                  <input className="submit-form__input" type="text" value={email} onChange={handleEmailChange} required placeholder="email@example.com" />
+                  <input className="submit-form__input" type="email" value={email} onChange={handleEmailChange} required placeholder="email@example.com" />
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+                  <input className="submit-form__input" type="text" pattern="[49][0-9][7]" value={phoneNumber} onChange={handlePhoneNumberChange} required />
                 </li>
               </ul>
             </fieldset>
@@ -157,15 +157,15 @@ const SubmitForm = ({ onSubmitted }) => {
                 </li>
                 <li>
                   <label className="submit-form__label">Time:</label>
-                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required placeholder="00:00" />
+                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required readOnly placeholder="00:00:000" />
                 </li>
                 <li>
                   <label className="submit-form__label">Email:</label>
-                  <input className="submit-form__input" type="text" value={email2} onChange={handleEmailChange2} required placeholder="email@example.com" />
+                  <input className="submit-form__input" type="email" value={email2} onChange={handleEmailChange2} required placeholder="email@example.com" />
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number:</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
+                  <input className="submit-form__input" type="text" pattern="[49][0-9][7]" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
                 </li>
               </ul>
             </fieldset>
