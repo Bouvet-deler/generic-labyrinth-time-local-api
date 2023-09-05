@@ -46,19 +46,17 @@ body {
 
 .app {
     height: auto;
-    width: 800px;
+    width: 60rem;
     margin: 0 auto;
     color: white;
 }
 
 .app-body {
+    margin-top: 2rem;
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
     height: auto;
-    padding-top: 24px;
-    padding-bottom: 24px;
+    padding-top: 2rem;
     background-color: #11133C;
 }
 
