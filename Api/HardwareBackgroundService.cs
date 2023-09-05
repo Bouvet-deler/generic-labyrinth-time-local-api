@@ -95,7 +95,7 @@ public class HardwereBackgroundService : BackgroundService
 
             if (restart == true)
             {
-                Console.WriteLine("Restart");
+               // Console.WriteLine("Restart");
                 stopWatch1.Reset();
                 stopWatch2.Reset();
                 restart = false; // DOBBELTSJEKKE
