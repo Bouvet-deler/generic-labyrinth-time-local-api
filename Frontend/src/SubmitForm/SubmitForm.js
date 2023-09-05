@@ -145,7 +145,7 @@ const SubmitForm = ({ onSubmitted }) => {
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number</label>
-                  <input className="submit-form__input" type="text" pattern="[49][0-9][7]" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+                  <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
                 </li>
               </ul>
             </fieldset>
@@ -165,7 +165,7 @@ const SubmitForm = ({ onSubmitted }) => {
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number:</label>
-                  <input className="submit-form__input" type="text" pattern="[49][0-9][7]" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
+                  <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
                 </li>
               </ul>
             </fieldset>
