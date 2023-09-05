@@ -28,7 +28,7 @@ void setup() {
 
 void loop() {
 
-state_obstacle = digitalRead(IR_RECEIVE_PIN);
+  state_obstacle = digitalRead(IR_RECEIVE_PIN);
 
   if (state_obstacle == 1 && pre_state_obstacle == 0){
      goal = true;
@@ -36,8 +36,7 @@ state_obstacle = digitalRead(IR_RECEIVE_PIN);
   pre_state_obstacle  = state_obstacle;
 
 
-  int button1State;
-  button1State = digitalRead(buttonPin);
+  int button1State = digitalRead(buttonPin);
   if (button1State == LOW)
   // if pushing the botton, the button will light, and the ball has started
     {
@@ -78,8 +77,7 @@ state_obstacle = digitalRead(IR_RECEIVE_PIN);
     {
       digitalWrite(buttonLedPin, LOW);
     }
- 
-    delay(400);
+    delay(100);
 
     
 
