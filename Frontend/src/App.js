@@ -38,7 +38,7 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-      <Stopwatch />
+        <Stopwatch />
         <h1>{title}</h1>
       </header>
       <div className="app-body">

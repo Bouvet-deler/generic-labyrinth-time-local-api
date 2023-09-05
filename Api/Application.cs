@@ -1,11 +1,9 @@
-using generic_high_score_local_api;
-using System;
-using System.Diagnostics;
 using System.Text.Json;
 
 public class Application
 {
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
+
     public List<User> CurrentToplist { get; private set; } = new();
 
     bool runStart = false;
@@ -14,9 +12,11 @@ public class Application
 
     bool runStop2 = false;
 
-    string time_span1;
+    bool resetArduino = false;
 
-    string time_span2;
+    string? time_span1 = null;
+
+    string? time_span2 = null;
 
     string faketime1 = "01:01:001";
     string faketime2 = "01:02:123";
@@ -121,6 +121,7 @@ public class Application
 
     public bool StartTime()
     {
+        resetArduino = false;
         return runStart;
     }
 
@@ -148,6 +149,7 @@ public class Application
     {
         runStop2 = true;
     }
+
     public void simulateStartTime()
     {
         runStart = true;
@@ -163,6 +165,12 @@ public class Application
         runStart = false;
         runStop = false;
         runStop2 = false;
+        resetArduino = true;
+    }
+
+    public bool sendArduinoReset()
+    {
+        return resetArduino;
     }
 
     public string sendTimePlayer1()
