@@ -43,9 +43,9 @@ public class HardwereBackgroundService : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await Task.Yield();
-            string a = _serialPort.ReadExisting();
+            string output_from_arduino = _serialPort.ReadExisting();
 
-            if (a == "0")
+            if (output_from_arduino == "0")
             {
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
@@ -54,14 +54,14 @@ public class HardwereBackgroundService : BackgroundService
                 _application.setStartTime();
             }
 
-            if (a == "s")
+            if (output_from_arduino == "s")
             { 
                 Console.WriteLine("Sensor har registrert ball");
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
                 // Format and display the TimeSpan value.'
 
-                elapsedTime = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
                 elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
