@@ -14,10 +14,10 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<Application>();
-builder.Services.AddHostedService<HardwereBackgroundService>();
+//builder.Services.AddHostedService<HardwereBackgroundService>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen() ;
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 

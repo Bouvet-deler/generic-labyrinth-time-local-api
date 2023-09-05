@@ -21,7 +21,8 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//Set your board COM
+        //_serialPort.PortName = "COM3";//Set your board COM
+        _serialPort.PortName = "/dev/tty.Bluetooth-Incoming-Port"; //ikke merge denne
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
         Stopwatch stopWatch1 = new Stopwatch();
@@ -38,7 +39,7 @@ public class HardwereBackgroundService : BackgroundService
         TimeSpan ts2;
         string elapsedTime = null;
         string elapsedTime2 = null;
-      
+
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -55,7 +56,7 @@ public class HardwereBackgroundService : BackgroundService
             }
 
             if (a == "s")
-            { 
+            {
                 Console.WriteLine("Sensor har registrert ball");
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
