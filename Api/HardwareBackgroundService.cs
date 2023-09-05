@@ -10,7 +10,6 @@ public class HardwereBackgroundService : BackgroundService
     private readonly Application _application;
     static SerialPort _serialPort;
 
-
     public HardwereBackgroundService(ILogger<HardwereBackgroundService> logger, Application application)
     {
         _logger = logger;
@@ -61,6 +60,7 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
+
                 elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
@@ -70,7 +70,6 @@ public class HardwereBackgroundService : BackgroundService
 
                 teller_ball += 1;
                 sensor2_har_startet = true;
-
             }
 
             if (teller_ball == 1 && sensor2_har_startet)
@@ -109,7 +108,6 @@ public class HardwereBackgroundService : BackgroundService
         }
     }
 }
-
 
 /*
      // to find what is wrong
