@@ -12,7 +12,6 @@ public class HardwereBackgroundService : BackgroundService
     private readonly Application _application;
     static SerialPort _serialPort;
 
-
     public HardwereBackgroundService(ILogger<HardwereBackgroundService> logger, Application application)
     {
         _logger = logger;
@@ -21,7 +20,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//Set your board COM
+        _serialPort.PortName = "COM4";//Set your board COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
         Stopwatch stopWatch1 = new Stopwatch();
@@ -38,7 +37,6 @@ public class HardwereBackgroundService : BackgroundService
         TimeSpan ts2;
         string elapsedTime = null;
         string elapsedTime2 = null;
-      
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -61,16 +59,12 @@ public class HardwereBackgroundService : BackgroundService
                 ts2 = stopWatch2.Elapsed;
                 // Format and display the TimeSpan value.'
 
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
                 elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts2.Hours, ts2.Minutes, ts2.Seconds,
                     ts2.Milliseconds / 10);
 
                 teller_ball += 1;
                 sensor2_har_startet = true;
-
             }
 
             if (teller_ball == 1 && sensor2_har_startet)
@@ -110,7 +104,6 @@ public class HardwereBackgroundService : BackgroundService
         }
     }
 }
-
 
 /*
      // to find what is wrong
