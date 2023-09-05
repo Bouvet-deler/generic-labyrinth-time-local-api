@@ -38,7 +38,7 @@ public class HardwereBackgroundService : BackgroundService
         TimeSpan ts2;
         string elapsedTime = null;
         string elapsedTime2 = null;
-        const bool retart = false; // MÅ FIKSES
+      
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -59,7 +59,11 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine("Sensor har registrert ball");
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
-                // Format and display the TimeSpan value.
+                // Format and display the TimeSpan value.'
+
+                elapsedTime = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
                 elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts2.Hours, ts2.Minutes, ts2.Seconds,
                     ts2.Milliseconds / 10);
@@ -93,6 +97,7 @@ public class HardwereBackgroundService : BackgroundService
             {
                 Console.WriteLine("Restart");
                 stopWatch1.Reset();
+                stopWatch2.Reset();
                 restart = false; // DOBBELTSJEKKE
                 teller_ball = 0;
                 tid_spiller1 = null;
