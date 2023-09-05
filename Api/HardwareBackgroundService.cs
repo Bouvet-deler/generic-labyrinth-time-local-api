@@ -20,9 +20,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        //_serialPort.PortName = "COM3";//Set your board COM
-        _serialPort.PortName = "/dev/tty.Bluetooth-Incoming-Port"; //ikke merge denne, TODO JULIE: fjerne
-        //_serialPort.PortName = "COM4";//Set your board COM TODO: JULIE: se om funker
+        _serialPort.PortName = "COM4";
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
