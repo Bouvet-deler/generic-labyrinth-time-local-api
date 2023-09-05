@@ -104,6 +104,7 @@ public class HardwereBackgroundService : BackgroundService
                 tid_spiller2 = null;
                 sensor2_har_startet = false;
                 elapsedTime = null;
+                elapsedTime2 = null;
                 time_return = false;
             }
         }

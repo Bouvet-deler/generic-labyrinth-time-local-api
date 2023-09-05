@@ -108,6 +108,8 @@ public class Application
             runStart = false;
             runStop = false;
             runStop2 = false;
+            
+
 
             // save state
             return await SaveState();
@@ -120,6 +122,7 @@ public class Application
 
     public bool StartTime()
     {
+        resetArduino = false;
         return runStart;
     }
 
