@@ -10,7 +10,6 @@ public class HardwereBackgroundService : BackgroundService
 {
     private readonly ILogger<HardwereBackgroundService> _logger;
     private readonly Application _application;
-
     static SerialPort _serialPort;
 
 
@@ -18,8 +17,6 @@ public class HardwereBackgroundService : BackgroundService
     {
         _logger = logger;
         _application = application;
-
-
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -35,7 +32,7 @@ public class HardwereBackgroundService : BackgroundService
         int teller_ball = 0;
         string tid_spiller1 = null;
         string tid_spiller2 = null;
-        bool restart = false;
+        bool restart = false; // MÅ FIKSES
         bool time_return = false;
         TimeSpan ts;
         TimeSpan ts2;
@@ -46,23 +43,10 @@ public class HardwereBackgroundService : BackgroundService
         while (!stoppingToken.IsCancellationRequested)
         {
             await Task.Yield();
-            //  _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            //  await Task.Delay(1000, stoppingToken);
-
-            //_application.setStartTime();
-
             string a = _serialPort.ReadExisting();
-
-            /*
-            if(a != "")
-            {
-                Console.WriteLine(a);
-            }
-            */
 
             if (a == "0")
             {
-
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
                 stopWatch2.Start();
@@ -70,15 +54,9 @@ public class HardwereBackgroundService : BackgroundService
                 _application.setStartTime();
             }
 
-
-            // if (a == "Sensor2" && sensor1_har_startet == true)
             if (a == "s")
-            {  // tiden skal stoppe
-
+            { 
                 Console.WriteLine("Sensor har registrert ball");
-                //Console.WriteLine(a);
-                // stopWatch1.Stop();
-
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
                 // Format and display the TimeSpan value.
@@ -86,11 +64,8 @@ public class HardwereBackgroundService : BackgroundService
                     ts2.Hours, ts2.Minutes, ts2.Seconds,
                     ts2.Milliseconds / 10);
 
-
                 teller_ball += 1;
                 sensor2_har_startet = true;
-
-
 
             }
 
@@ -98,8 +73,6 @@ public class HardwereBackgroundService : BackgroundService
             {
                 tid_spiller1 = elapsedTime;
                 _application.setStopTime();
-                //    _application.setStopTime();
-                //   Thread.Sleep(15);
             }
             else if (teller_ball == 2 && sensor2_har_startet)
             {
@@ -112,27 +85,15 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine(tid_spiller1);
                 Console.WriteLine(tid_spiller2);
                 sensor2_har_startet = false;
-
-                // Thread.Sleep(15);
-                // restart = true;
             }
 
-            /*
-            if (teller_ball == 2 && time_return)
-            {
-               // Console.WriteLine(tid_spiller1);
-                Console.WriteLine(tid_spiller2);
-            }
-
-            */
 
 
-
-            if (retart == true)
+            if (restart == true)
             {
                 Console.WriteLine("Restart");
                 stopWatch1.Reset();
-                //restart = false;
+                restart = false; // DOBBELTSJEKKE
                 teller_ball = 0;
                 tid_spiller1 = null;
                 tid_spiller2 = null;
@@ -143,3 +104,12 @@ public class HardwereBackgroundService : BackgroundService
         }
     }
 }
+
+
+/*
+     // to find what is wrong
+if(a != "")
+{
+    Console.WriteLine(a);
+}
+*/
