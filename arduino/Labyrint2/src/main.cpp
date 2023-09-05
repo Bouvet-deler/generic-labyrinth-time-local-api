@@ -50,6 +50,7 @@ void loop() {
     number_of_goals += 1;
     if (number_of_goals >= 2) {
       game_running = false;
+      number_of_goals = 0;
     }
   }
   else if (button1State == HIGH)

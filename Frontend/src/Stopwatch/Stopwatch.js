@@ -130,7 +130,8 @@ function Stopwatch() {
         if (!res.ok) {
           throw res;
         }
-        const runTime = await res.text().then((text) => {
+          const runTime = await res.text().then((text) => {
+              console.log(text)
           return text.toString();
         })
         setLapTime(runTime);
@@ -143,7 +144,8 @@ function Stopwatch() {
         if (!res.ok) {
           throw res;
         }
-        const runTime = await res.text().then((text) => {
+          const runTime = await res.text().then((text) => {
+              console.log(text)
           return text.toString();
         })
         setLapTime2(runTime);

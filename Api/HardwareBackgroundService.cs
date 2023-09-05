@@ -74,15 +74,14 @@ public class HardwereBackgroundService : BackgroundService
             if (teller_ball == 1 && sensor2_har_startet)
             {
                 tid_spiller1 = elapsedTime;
-                _application.setStopTime();
+                TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
+                _application.setStopTime(tsPlayer1);
             }
             else if (teller_ball == 2 && sensor2_har_startet)
             {
                 tid_spiller2 = elapsedTime2;
-                _application.setStopTime2();
-                TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
                 TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
-                _application.setTheTime(tsPlayer1, tsPlayer2);
+                _application.setStopTime2(tsPlayer2);
                 time_return = true;
                 Console.WriteLine(tid_spiller1);
                 Console.WriteLine(tid_spiller2);

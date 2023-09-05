@@ -137,25 +137,21 @@ public class Application
         runStart = true;
     }
 
-    public void setStopTime()
+    public void setStopTime(TimeSpan tsPlayer1)
     {
+        time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
         runStop = true;
     }
 
-    public void setStopTime2()
+    public void setStopTime2(TimeSpan tsPlayer2)
     {
+        time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
         runStop2 = true;
     }
 
     public void simulateStartTime()
     {
         runStart = true;
-    }
-
-    public void setTheTime(TimeSpan timePlayer1, TimeSpan timePlayer2)
-    {
-        time_span1 = timePlayer1.ToString("mm':'ss':'fff");
-        time_span2 = timePlayer2.ToString("mm':'ss':'fff");
     }
 
     public void resetTime()
