@@ -45,8 +45,9 @@ public class HardwereBackgroundService : BackgroundService
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
 
-            if (output_from_arduino == "0")
+            if (output_from_arduino == "0") // knappen er tryket ned
             {
+                // spill lyd 
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
                 stopWatch2.Start();
@@ -95,10 +96,9 @@ public class HardwereBackgroundService : BackgroundService
 
             if (restart == true)
             {
-               // Console.WriteLine("Restart");
                 stopWatch1.Reset();
                 stopWatch2.Reset();
-                restart = false; // DOBBELTSJEKKE
+                restart = false;
                 teller_ball = 0;
                 tid_spiller1 = null;
                 tid_spiller2 = null;
