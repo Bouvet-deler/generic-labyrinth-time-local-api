@@ -18,7 +18,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//TODO: SET TO YOUR COM 
+        _serialPort.PortName = "COM3"; //TODO: SET TO YOUR COM 
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
@@ -26,7 +26,6 @@ public class HardwereBackgroundService : BackgroundService
         Stopwatch stopWatch2 = new Stopwatch();
         TimeSpan ts;
         TimeSpan ts2;
-        
 
         bool sensor1_har_startet = false;
         bool sensor2_har_startet = false;
