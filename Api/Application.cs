@@ -6,7 +6,6 @@ using System.Text.Json;
 public class Application
 {
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
-    
     public List<User> CurrentToplist { get; private set; } = new();
 
     bool runStart = false;
@@ -155,6 +154,12 @@ public class Application
     {
         time_span1 = timePlayer1.ToString("mm':'ss':'fff");
         time_span2 = timePlayer2.ToString("mm':'ss':'fff");
+    }
+    public void resetTime()
+    {
+        runStart = false;
+        runStop = false;
+        runStop2 = false;
     }
 
     public string sendTimePlayer1()
