@@ -157,6 +157,7 @@ public class Application
         time_span1 = timePlayer1.ToString("mm':'ss':'fff");
         time_span2 = timePlayer2.ToString("mm':'ss':'fff");
     }
+
     public void resetTime()
     {
         runStart = false;

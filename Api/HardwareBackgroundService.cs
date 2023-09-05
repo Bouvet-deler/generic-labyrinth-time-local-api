@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.IO.Ports;
+using System.Media;
 
 namespace generic_high_score_local_api;
 
@@ -21,21 +22,22 @@ public class HardwereBackgroundService : BackgroundService
         _serialPort.PortName = "COM3";//Set your board COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
+
         Stopwatch stopWatch1 = new Stopwatch();
         Stopwatch stopWatch2 = new Stopwatch();
+        TimeSpan ts;
+        TimeSpan ts2;
+        
 
         bool sensor1_har_startet = false;
         bool sensor2_har_startet = false;
-        int teller_ball = 0;
+        bool restart = false;
+        bool time_return = false;
         string tid_spiller1 = null;
         string tid_spiller2 = null;
-        bool restart = false; // MÅ FIKSES
-        bool time_return = false;
-        TimeSpan ts;
-        TimeSpan ts2;
         string elapsedTime = null;
         string elapsedTime2 = null;
-      
+        int teller_ball = 0;
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -44,7 +46,9 @@ public class HardwereBackgroundService : BackgroundService
 
             if (output_from_arduino == "0") // knappen er tryket ned
             {
-                // spill lyd via pc 
+                SoundPlayer startSound = new SoundPlayer(@"C:\Users\burhan.sarfraz\source\repos\generic-high-score-local-api\Api\start_sound.wav");
+                startSound.Play();
+                Thread.Sleep(5000);
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
                 stopWatch2.Start();
