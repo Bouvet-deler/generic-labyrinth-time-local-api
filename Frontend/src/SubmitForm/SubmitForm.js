@@ -132,7 +132,7 @@ const SubmitForm = ({ onSubmitted }) => {
             <fieldset className="submit-form__fieldset">
               <ul className="submit-form__ul">
                 <li>
-                  <label className="submit-form__label">Name:</label>
+                  <label className="submit-form__label">First- and lastname:</label>
                   <input className="submit-form__input" type="text" value={username} onChange={handleUserNameChange} required placeholder="Player1" />
                 </li>
                 <li>
@@ -152,7 +152,7 @@ const SubmitForm = ({ onSubmitted }) => {
             <fieldset className="submit-form__fieldset">
               <ul className="submit-form__ul">
                 <li>
-                  <label className="submit-form__label">Name:</label>
+                  <label className="submit-form__label">First- and lastname:</label>
                   <input className="submit-form__input" type="text" value={username2} onChange={handleUserNameChange2} required placeholder="Player2" />
                 </li>
                 <li>
