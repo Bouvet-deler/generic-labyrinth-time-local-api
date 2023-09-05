@@ -1,8 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Ports;
-using System.Threading;
-using static System.Net.Mime.MediaTypeNames;
+using System.Media;
 
 namespace generic_high_score_local_api;
 
@@ -20,7 +18,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM4";
+        _serialPort.PortName = "COM4"; //Set your COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
@@ -31,12 +29,12 @@ public class HardwereBackgroundService : BackgroundService
 
         bool sensor1_har_startet = false;
         bool sensor2_har_startet = false;
-        bool restart = false; // MÅ FIKSES
+        bool restart = false;
         bool time_return = false;
-        string? tid_spiller1 = null;
-        string? tid_spiller2 = null;
-        string? elapsedTime = null;
-        string? elapsedTime2 = null;
+        string tid_spiller1 = null;
+        string tid_spiller2 = null;
+        string elapsedTime = null;
+        string elapsedTime2 = null;
         int teller_ball = 0;
 
         while (!stoppingToken.IsCancellationRequested)
@@ -44,8 +42,11 @@ public class HardwereBackgroundService : BackgroundService
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
 
-            if (output_from_arduino == "0")
+            if (output_from_arduino == "0") // the button is pushed down
             {
+                SoundPlayer startSound = new SoundPlayer(@"C:\Users\burhan.sarfraz\source\repos\generic-high-score-local-api\Api\start_sound.wav");
+                startSound.Play();
+                Thread.Sleep(5000);
                 Console.WriteLine("Tid startet");
                 stopWatch1.Start();
                 stopWatch2.Start();
@@ -55,11 +56,14 @@ public class HardwereBackgroundService : BackgroundService
 
             if (output_from_arduino == "s")
             {
-                Console.WriteLine("Sensor har registrert ball");
+                Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
+                ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
-                // Format and display the TimeSpan value.'
 
-                elapsedTime2 = elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts2.Hours, ts2.Minutes, ts2.Seconds,
                     ts2.Milliseconds / 10);
 
@@ -89,10 +93,13 @@ public class HardwereBackgroundService : BackgroundService
 
             if (restart == true)
             {
+<<<<<<< HEAD
                 // Console.WriteLine("Restart");
+=======
+>>>>>>> a4fc8788a005c2e59467d11e1801f59b7a331064
                 stopWatch1.Reset();
                 stopWatch2.Reset();
-                restart = false; // DOBBELTSJEKKE
+                restart = false;
                 teller_ball = 0;
                 tid_spiller1 = null;
                 tid_spiller2 = null;

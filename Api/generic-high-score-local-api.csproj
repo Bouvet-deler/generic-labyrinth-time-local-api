@@ -11,6 +11,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
+    <PackageReference Include="System.Windows.Extensions" Version="7.0.0" />
   </ItemGroup>
 
 </Project>

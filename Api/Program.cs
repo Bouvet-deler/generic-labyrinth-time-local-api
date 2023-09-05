@@ -1,3 +1,5 @@
+using generic_high_score_local_api;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -12,7 +14,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<Application>();
-//builder.Services.AddHostedService<HardwereBackgroundService>();
+builder.Services.AddHostedService<HardwereBackgroundService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
