@@ -123,6 +123,7 @@ function Stopwatch() {
         }
       })
   };
+
   const getLapTime = () => {
     fetch('https://localhost:5050/sendTimePlayer1')
       .then(async (res) => {
