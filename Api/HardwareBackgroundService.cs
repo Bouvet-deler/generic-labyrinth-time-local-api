@@ -18,7 +18,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM4"; //Set your COM
+        _serialPort.PortName = "COM3"; //Set your COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
@@ -31,8 +31,8 @@ public class HardwereBackgroundService : BackgroundService
         bool sensor2_har_startet = false;
         bool restart = false;
         bool time_return = false;
-        string tid_spiller1 = null;
-        string tid_spiller2 = null;
+        string? tid_spiller1 = null;
+        string? tid_spiller2 = null;
         string elapsedTime = null;
         string elapsedTime2 = null;
         int teller_ball = 0;
@@ -93,10 +93,6 @@ public class HardwereBackgroundService : BackgroundService
 
             if (restart == true)
             {
-<<<<<<< HEAD
-                // Console.WriteLine("Restart");
-=======
->>>>>>> a4fc8788a005c2e59467d11e1801f59b7a331064
                 stopWatch1.Reset();
                 stopWatch2.Reset();
                 restart = false;
