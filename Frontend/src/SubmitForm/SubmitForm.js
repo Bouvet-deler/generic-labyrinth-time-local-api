@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
 import "./SubmitForm.css";
 
-
 const SubmitForm = ({ onSubmitted }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
