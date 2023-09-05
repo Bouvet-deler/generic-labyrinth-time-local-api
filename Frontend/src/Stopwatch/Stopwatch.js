@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 function Stopwatch() {
   const [startTime, setStartTime] = useState(0);
   const [running, setRunning] = useState(false);
+  const [laps, setLaps] = useState([]);
   const [p1d, setP1d] = useState(false);
   const [p2d, setP2d] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -167,8 +168,8 @@ function Stopwatch() {
   return (
     <div className="stopwatch">
       <p>{formatTime(elapsedTime)}</p>
-      <button onClick={start}>Ready</button>
-      <button onClick={reset}>New run</button>
+      <button className="button" onClick={start}>Start</button>
+      <button className="button" onClick={reset}>Reset</button>
       {lapTime !== 0 && (
         <p>{lapTime}</p>
       )}
