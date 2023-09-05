@@ -21,7 +21,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//Set your board COM
+        _serialPort.PortName = "COM3";//TODO: SET TO YOUR COM 
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
         Stopwatch stopWatch1 = new Stopwatch();
@@ -32,7 +32,7 @@ public class HardwereBackgroundService : BackgroundService
         int teller_ball = 0;
         string tid_spiller1 = null;
         string tid_spiller2 = null;
-        bool restart = false; // MÅ FIKSES
+        bool restart = false;
         bool time_return = false;
         TimeSpan ts;
         TimeSpan ts2;
@@ -45,7 +45,7 @@ public class HardwereBackgroundService : BackgroundService
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
 
-            if (output_from_arduino == "0") // knappen er tryket ned
+            if (output_from_arduino == "0") // the button is pushed down
             {
                 // spill lyd via pc 
                 Console.WriteLine("Tid startet");
@@ -57,12 +57,10 @@ public class HardwereBackgroundService : BackgroundService
 
             if (output_from_arduino == "s")
             { 
-                Console.WriteLine("Sensor har registrert ball");
+                Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
-                // Format and display the TimeSpan value.'
-
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
                     ts.Hours, ts.Minutes, ts.Seconds,
                     ts.Milliseconds / 10);
                 elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
