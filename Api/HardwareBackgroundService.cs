@@ -90,8 +90,8 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine(tid_spiller2);
                 sensor2_har_startet = false;
             }
-
-
+            
+            restart = _application.sendArduinoReset();
 
             if (restart == true)
             {
