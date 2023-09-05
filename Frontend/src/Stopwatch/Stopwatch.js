@@ -168,8 +168,8 @@ function Stopwatch() {
   return (
     <div className="stopwatch">
       <p>{formatTime(elapsedTime)}</p>
-      <button onClick={start}>Ready</button>
-      <button onClick={reset}>New run</button>
+      <button className="button" onClick={start}>Start</button>
+      <button className="button" onClick={reset}>Reset</button>
       {lapTime !== 0 && (
         <p>{lapTime}</p>
       )}

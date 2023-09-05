@@ -36,17 +36,20 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
-      <header className="header">
-        <Stopwatch />
-        <h1>{title}</h1>
-      </header>
-      <div className="app-body">
-        <Leaderboard users={users} />
-        <SubmitForm onSubmitted={fetchUsers} />
+    <>
+      <div style={{ marginTop: -100 }}><img src="./Bouvet_Logo_blue.png" height={100}></img></div>
+      <div className="app">
+        <header className="header">
+          <Stopwatch />
+        </header>
+        <div className="app-body">
+          <Leaderboard users={users} />
+          <SubmitForm onSubmitted={fetchUsers} />
+        </div>
       </div>
-      <div className="rocks-mountains" />
-    </div>
+      <img src="./illustration.png" style={{ marginTop: "-3rem", marginLeft: "2rem" }}></img>
+    </>
+
   );
 }
 
