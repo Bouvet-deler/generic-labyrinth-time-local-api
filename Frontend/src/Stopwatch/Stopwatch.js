@@ -201,10 +201,10 @@ setDoneTime(elapsedTime);
       <button onClick={start}>Ready</button>
       <button onClick={reset}>New run</button>
       {lapTime !== 0 && (
-        <p>{formatTime(lapTime)}</p>
+        <p>{lapTime}</p>
       ) }
       {lapTime2 != 0 &&(
-        <p>{formatTime(lapTime2)}</p>
+        <p>{lapTime2}</p>
       )}
     </div>
   );
