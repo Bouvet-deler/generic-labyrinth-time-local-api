@@ -1,9 +1,5 @@
 #include <Arduino.h>
 
-
-bool ball_has_startet = false;
-//bool ball_er_i_posisjon = false;
-
 const int buttonPin = 10;
 const int buttonLedPin = 9;
 const int restartPin = 3;
@@ -12,6 +8,7 @@ const int buzzerPin = 11;
 int state_obstacle  = 1; // sensor for motion/ obstacles
 int pre_state_obstacle = 1;
 
+bool ball_has_startet = false;
 bool goal = false;
 
 void setup() {
@@ -41,26 +38,7 @@ void loop() {
   // if pushing the botton, the button will light, and the ball has started
     {
 
-      digitalWrite(buttonLedPin, HIGH);
-      tone(buzzerPin, 800); // Send 1KHz sound signal...
-      delay(600);        // ...for 1 sec
-      noTone(buzzerPin);     // Stop sound...
-      delay(600);        // ...for 1sec
-      tone(buzzerPin, 800); // Send 1KHz sound signal...
-      delay(600);        // ...for 1 sec
-      noTone(buzzerPin);     // Stop sound...
-      delay(600);        // ...for 1sec
-      tone(buzzerPin, 800); // Send 1KHz sound signal...
-      delay(600);        // ...for 1 sec
-      noTone(buzzerPin);     // Stop sound...
-      delay(600);        // ...for 1sec
-
-      tone(buzzerPin, 1600); // Send 1KHz sound signal...
-      delay(1500);        // ...for 1 sec
-      noTone(buzzerPin);     // Stop sound...
-      delay(1000);        // ...for 1sec
-
-         
+      digitalWrite(buttonLedPin, HIGH);        
       Serial.print(button1State);
       ball_has_startet = true;
 
@@ -79,12 +57,4 @@ void loop() {
     }
     delay(100);
 
-    
-
-    
 }
-
-
-
-
-
