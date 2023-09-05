@@ -44,7 +44,7 @@ public class HardwereBackgroundService : BackgroundService
 
             if (output_from_arduino == "0") // the button is pushed down
             {
-                SoundPlayer startSound = new SoundPlayer(@"C:\Users\burhan.sarfraz\source\repos\generic-high-score-local-api\Api\start_sound.wav");
+                SoundPlayer startSound = new SoundPlayer(".\\start_sound.wav");
                 startSound.Play();
                 Thread.Sleep(5000);
                 Console.WriteLine("Tid startet");
