@@ -18,6 +18,9 @@ public class Application
 
     string? time_span2 = null;
 
+    string faketime1 = "01:01:001";
+    string faketime2 = "01:02:123";
+
     private string _path = "../Toplists/";
 
     public IResult CreateNewTopList(string toplistName)
@@ -124,7 +127,7 @@ public class Application
 
     public bool EndTime()
     {
-        return runStop;   
+        return runStop;
     }
 
     public bool EndTime2()
@@ -173,11 +176,13 @@ public class Application
 
     public string sendTimePlayer1()
     {
+        time_span1 = faketime1;
         return time_span1;
     }
 
     public string sendTimePlayer2()
     {
+        time_span2 = faketime2;
         return time_span2;
     }
 

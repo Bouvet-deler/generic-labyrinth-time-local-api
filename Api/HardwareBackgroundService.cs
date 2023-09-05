@@ -18,7 +18,7 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3"; //TODO: SET TO YOUR COM 
+        _serialPort.PortName = "COM4"; //Set your COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
@@ -55,7 +55,7 @@ public class HardwereBackgroundService : BackgroundService
             }
 
             if (output_from_arduino == "s")
-            { 
+            {
                 Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
                 ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
@@ -88,11 +88,15 @@ public class HardwereBackgroundService : BackgroundService
                 Console.WriteLine(tid_spiller2);
                 sensor2_har_startet = false;
             }
-            
+
             restart = _application.sendArduinoReset();
 
             if (restart == true)
             {
+<<<<<<< HEAD
+                // Console.WriteLine("Restart");
+=======
+>>>>>>> a4fc8788a005c2e59467d11e1801f59b7a331064
                 stopWatch1.Reset();
                 stopWatch2.Reset();
                 restart = false;
