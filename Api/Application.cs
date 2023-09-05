@@ -14,6 +14,8 @@ public class Application
 
     bool runStop2 = false;
 
+    bool resetArduino = false;
+
     string time_span1;
 
     string time_span2;
@@ -150,6 +152,8 @@ public class Application
         runStart = true;
     }
 
+
+
     public void setTheTime(TimeSpan timePlayer1, TimeSpan timePlayer2)
     {
         time_span1 = timePlayer1.ToString("mm':'ss':'fff");
@@ -160,6 +164,12 @@ public class Application
         runStart = false;
         runStop = false;
         runStop2 = false;
+        resetArduino = true;
+    }
+
+    public bool sendArduinoReset()
+    {
+        return resetArduino;
     }
 
     public string sendTimePlayer1()
