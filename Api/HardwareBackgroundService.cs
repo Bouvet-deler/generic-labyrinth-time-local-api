@@ -12,7 +12,6 @@ public class HardwereBackgroundService : BackgroundService
     private readonly Application _application;
     static SerialPort _serialPort;
 
-
     public HardwereBackgroundService(ILogger<HardwereBackgroundService> logger, Application application)
     {
         _logger = logger;
@@ -21,24 +20,24 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3";//Set your board COM
+        _serialPort.PortName = "COM4";//Set your board COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
+
         Stopwatch stopWatch1 = new Stopwatch();
         Stopwatch stopWatch2 = new Stopwatch();
+        TimeSpan ts;
+        TimeSpan ts2;
 
         bool sensor1_har_startet = false;
         bool sensor2_har_startet = false;
-        int teller_ball = 0;
-        string tid_spiller1 = null;
-        string tid_spiller2 = null;
         bool restart = false; // MÅ FIKSES
         bool time_return = false;
-        TimeSpan ts;
-        TimeSpan ts2;
-        string elapsedTime = null;
-        string elapsedTime2 = null;
-      
+        string? tid_spiller1 = null;
+        string? tid_spiller2 = null;
+        string? elapsedTime = null;
+        string? elapsedTime2 = null;
+        int teller_ball = 0;
 
         while (!stoppingToken.IsCancellationRequested)
         {
@@ -58,20 +57,15 @@ public class HardwereBackgroundService : BackgroundService
             if (output_from_arduino == "s")
             { 
                 Console.WriteLine("Sensor har registrert ball");
-                ts = stopWatch1.Elapsed;
                 ts2 = stopWatch2.Elapsed;
                 // Format and display the TimeSpan value.'
 
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                elapsedTime2 = elapsedTime = string.Format("{0:00}:{1:00}:{2:00}.{3:00}",
                     ts2.Hours, ts2.Minutes, ts2.Seconds,
                     ts2.Milliseconds / 10);
 
                 teller_ball += 1;
                 sensor2_har_startet = true;
-
             }
 
             if (teller_ball == 1 && sensor2_har_startet)
@@ -110,7 +104,6 @@ public class HardwereBackgroundService : BackgroundService
         }
     }
 }
-
 
 /*
      // to find what is wrong
