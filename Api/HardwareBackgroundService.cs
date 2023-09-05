@@ -1,8 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO.Ports;
-using System.Threading;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace generic_high_score_local_api;
 
