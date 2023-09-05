@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 function Stopwatch() {
   const [startTime, setStartTime] = useState(0);
   const [running, setRunning] = useState(false);
-  const [laps, setLaps] = useState([]);
   const [p1d, setP1d] = useState(false);
   const [p2d, setP2d] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);

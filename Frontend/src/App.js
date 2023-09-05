@@ -39,7 +39,6 @@ function App() {
     <div className="app">
       <header className="header">
         <Stopwatch />
-        <h1>{title}</h1>
       </header>
       <div className="app-body">
         <Leaderboard users={users} />

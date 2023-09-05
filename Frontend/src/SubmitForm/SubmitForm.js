@@ -130,40 +130,40 @@ const SubmitForm = ({ onSubmitted }) => {
             <fieldset className="submit-form__fieldset">
               <ul className="submit-form__ul">
                 <li>
-                  <label className="submit-form__label">Name</label>
+                  <label className="submit-form__label">First- and lastname</label>
                   <input className="submit-form__input" type="text" value={username} onChange={handleUserNameChange} required />
                 </li>
                 <li>
                   <label className="submit-form__label">Time</label>
-                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required />
+                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required readOnly />
                 </li>
                 <li>
                   <label className="submit-form__label">Email</label>
-                  <input className="submit-form__input" type="text" value={email} onChange={handleEmailChange} required />
+                  <input className="submit-form__input" type="email" value={email} onChange={handleEmailChange} required />
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+                  <input className="submit-form__input" type="text" pattern="[49][0-9]{7}" value={phoneNumber} onChange={handlePhoneNumberChange} required />
                 </li>
               </ul>
             </fieldset>
             <fieldset className="submit-form__fieldset">
               <ul className="submit-form__ul">
                 <li>
-                  <label className="submit-form__label">Name</label>
+                  <label className="submit-form__label">First- and lastname</label>
                   <input className="submit-form__input" type="text" value={username2} onChange={handleUserNameChange2} required />
                 </li>
                 <li>
                   <label className="submit-form__label">Time</label>
-                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required />
+                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required readOnly />
                 </li>
                 <li>
                   <label className="submit-form__label">Email</label>
-                  <input className="submit-form__input" type="text" value={email2} onChange={handleEmailChange2} required />
+                  <input className="submit-form__input" type="email" value={email2} onChange={handleEmailChange2} required />
                 </li>
                 <li>
                   <label className="submit-form__label">Phone number</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
+                  <input className="submit-form__input" type="text" pattern="[49][0-9]{7}" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
                 </li>
               </ul>
             </fieldset>
