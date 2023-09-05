@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
 import "./SubmitForm.css";
-import Stopwatch from "./Stopwatch/Stopwatch";
 
 
 const SubmitForm = ({ onSubmitted }) => {
@@ -81,8 +80,6 @@ const SubmitForm = ({ onSubmitted }) => {
         if (!res.ok) {
           throw res;
         }
-        if Stopwatch.elapsedTime)
-        
         const runTime = await res.text().then((text) => {
           return text.toString();
         })
