@@ -42,6 +42,7 @@ function Stopwatch() {
     }
     if(p1d && p2d) {
       setRunning(false);
+      setElapsedTime("FINISHED");
     }
 
 
@@ -49,9 +50,9 @@ function Stopwatch() {
 
 
 
-  const start = async () => {
 
-   // reset();
+
+  const start = async () => {
     let started = false;
     while(!started){
     await new Promise(r => setTimeout(r, 100));
@@ -130,7 +131,9 @@ setDoneTime(elapsedTime);
       method: "GET",
     })
       .then((res) => {
-        
+
+        setLapTime(0);
+        setLapTime2(0);
         setStartTime(0);
         setP1d(false);
         setP2d(false);
@@ -154,7 +157,6 @@ setDoneTime(elapsedTime);
       const runTime = await res.text().then((text) => {
         return text.toString();
       })
-      console.log("LAP1 - " , runTime)
       setLapTime(runTime);
     });
 
@@ -169,27 +171,24 @@ setDoneTime(elapsedTime);
       const runTime = await res.text().then((text) => {
         return text.toString();
       })
-      console.log(runTime);
       setLapTime2(runTime);
     });
 
   }
 
- 
-  const lap = () => {
-    if (running) {
-      const now = Date.now();
-      const lapTime = now - startTime;
-      setLaps([...laps, lapTime]);
-    }
-  };
 
   const formatTime = (time) => {
+
+  if (time === "FINISHED"){
+    return "🥳🎉FINISHED🎉🎊"
+  }
+  else {
     const minutes = Math.floor(time / 60000);
     const seconds = Math.floor((time % 60000) / 1000);
     const milliseconds = time % 1000;
     return `${padZero(minutes)}:${padZero(seconds)}:${padZero(milliseconds, 3)}`;
-  };
+  }
+};
 
   const padZero = (num, width = 2) => {
     return String(num).padStart(width, "0");
@@ -201,10 +200,10 @@ setDoneTime(elapsedTime);
       <button onClick={start}>Ready</button>
       <button onClick={reset}>New run</button>
       {lapTime !== 0 && (
-        <p>{formatTime(lapTime)}</p>
+        <p>{lapTime}</p>
       ) }
-      {lapTime2 != 0 &&(
-        <p>{formatTime(lapTime2)}</p>
+      {lapTime2 !== 0 &&(
+        <p>{lapTime2}</p>
       )}
     </div>
   );
