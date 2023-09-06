@@ -25,30 +25,13 @@
 }
 
 .leaderboard {
-    padding-left: 0;
-    padding-top: 16px;
-    padding-bottom: 25px;
+    display: flex;
 }
 
 .leaderboard-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid white;
-    font-size: large;
-}
-
-.leaderboard-item span:first-child {
-    margin-right: 16px;
-    font-weight: 600;
-    width: 30px;
-
-}
-
-.leaderboard-item span:last-child {
-    justify-self: flex-end;
-    margin: 0 auto;
-    margin-right: 0;
-    font-weight: 600;
+    flex: 1;
+    margin-top: 0.2rem;
+    padding-top: 0.4rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #F9A86F;
 }
