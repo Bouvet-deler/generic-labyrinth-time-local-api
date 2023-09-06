@@ -18,7 +18,8 @@ public class HardwereBackgroundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM4"; //Set your COM
+        //_serialPort.PortName = "COM4"; //Set your COM
+        _serialPort.PortName = "/dev/tty.Bluetooth-Incoming-Port"; //kommenter ut Julie
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
@@ -93,10 +94,7 @@ public class HardwereBackgroundService : BackgroundService
 
             if (restart == true)
             {
-<<<<<<< HEAD
                 // Console.WriteLine("Restart");
-=======
->>>>>>> a4fc8788a005c2e59467d11e1801f59b7a331064
                 stopWatch1.Reset();
                 stopWatch2.Reset();
                 restart = false;
