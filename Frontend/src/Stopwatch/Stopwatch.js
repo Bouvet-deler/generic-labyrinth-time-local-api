@@ -3,13 +3,13 @@ import React, { useState, useEffect } from "react";
 function Stopwatch() {
   const [startTime, setStartTime] = useState(0);
   const [running, setRunning] = useState(false);
-  const [laps, setLaps] = useState([]);
   const [p1d, setP1d] = useState(false);
   const [p2d, setP2d] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [lapTime, setLapTime] = useState(0);
   const [lapTime2, setLapTime2] = useState(0);
-  const [doneTime, setDoneTime] = useState(0);
+  const [resetAndStart, setReset] = useState(false); 
+
 
   useEffect(() => {
     let timer;
@@ -17,7 +17,6 @@ function Stopwatch() {
       timer = setInterval(() => {
         const currentTime = Date.now() - startTime;
         setElapsedTime(currentTime);
-        //console.log(currentTime);
       }, 10); // Update every 10 milliseconds
     } else {
       clearInterval(timer);
@@ -37,6 +36,14 @@ function Stopwatch() {
       setElapsedTime("FINISHED");
     }
   }, [p1d, p2d]);
+
+
+  useEffect(() => {
+    if (resetAndStart) {
+      start();
+      setReset(false);
+    }
+  }, [resetAndStart]);
 
   const start = async () => {
     let started = false;
@@ -58,7 +65,6 @@ function Stopwatch() {
           }
         })
     }
-    setDoneTime(elapsedTime);
   };
 
   const getEnd = async () => {
@@ -118,6 +124,7 @@ function Stopwatch() {
         setRunning(false);
         //running = false;
         setElapsedTime(0);
+        setReset(start);
         if (!res.ok) {
           throw res;
         }
@@ -171,8 +178,7 @@ function Stopwatch() {
   return (
     <div className="stopwatch">
       <p>{formatTime(elapsedTime)}</p>
-      <button className="button" onClick={start}>Start</button>
-      <button className="button" onClick={reset}>Reset</button>
+      <button className="button" onClick={reset}>New round</button>
       {lapTime !== 0 && (
         <p>{lapTime}</p>
       )}
