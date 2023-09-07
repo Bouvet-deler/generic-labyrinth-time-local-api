@@ -21,19 +21,17 @@ const Leaderboard = ({ users }) => {
   return (
     <article className="leaderboard--wrapper">
       <h2 className="leaderboard__header">Leaderboard</h2>
-      {/* 
-      {console.log(users, "VANLIG")}
-      {console.log(newestUsers)}
-      {console.log(sortedUsers, "SORTERT")} */}
 
       {users && users.length > 0 ? (
         <>
           {users && sortedUsers.slice(0, 10).map((user, index) => (
+
             <div className="leaderboard" style={{ backgroundColor: user === newestUsers[0] || user === newestUsers[1] ? "#1D43C6" : "none" }} key={user.index}>
               <div className="leaderboard-item">{index + 1}</div>
               <div className="leaderboard-item">{user.name}</div>
               <div className="leaderboard-item">{user.time}</div>
             </div>
+
           ))
           }
         </>
