@@ -26,10 +26,10 @@ const Leaderboard = ({ users }) => {
         <>
           {users && sortedUsers.slice(0, 10).map((user, index) => (
 
-            <div className="leaderboard" style={{ backgroundColor: user === newestUsers[0] || user === newestUsers[1] ? "#1D43C6" : "none" }} key={user.index}>
+            <div className={`leaderboard-row ${user === newestUsers[0] || user === newestUsers[1] ? "leaderboard-row-new" : "leaderboard-row"}`} key={user.index}>
               <div className="leaderboard-item">{index + 1}</div>
               <div className="leaderboard-item">{user.name}</div>
-              <div className="leaderboard-item">{user.time}</div>
+              <div className="leaderboard-item last-item">{user.time}</div>
             </div>
 
           ))

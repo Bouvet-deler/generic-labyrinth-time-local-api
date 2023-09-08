@@ -24,14 +24,43 @@
     margin-bottom: 1rem;
 }
 
-.leaderboard {
+.leaderboard-row {
     display: flex;
+    margin: 0.7rem 0rem;
+    border: #F9A86F 1px solid;
+    background-color: #F9EAD4;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #11133C;
+}
+
+.leaderboard-row-new {
+    animation: blink 4s;
 }
 
 .leaderboard-item {
     flex: 1;
-    margin-top: 0.2rem;
-    padding-top: 0.4rem;
-    padding-bottom: 0.2rem;
-    border-bottom: 1px solid #F9A86F;
+    padding: 0.1rem 1rem;
+}
+
+.last-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+@keyframes blink {
+
+    0%,
+    75% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100%,
+    25% {
+        transform: scale(1);
+        opacity: 1;
+        background-color: #F9A86F;
+    }
 }
