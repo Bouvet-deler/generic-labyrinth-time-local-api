@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Text.Json;
 
 public class Application
@@ -5,6 +6,8 @@ public class Application
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
 
     public List<User> CurrentToplist { get; private set; } = new();
+
+    CultureInfo culture = null;
 
     bool runStart = false;
 
@@ -88,44 +91,35 @@ public class Application
             {
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
-                if (checkIfCoolPerson(upperUserName))
-                {
-                    coolPerson = true;
-                }
             }
+
             if (user2 == null)
             {
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
-                if (checkIfCoolPerson(upperUserName2))
-                {
-                    coolPerson2 = true;
-                }
+            }
+
+            if (checkIfCoolPerson(upperUserName))
+            {
+                coolPerson = true;
+            }
+
+            if (checkIfCoolPerson(upperUserName2))
+            {
+                coolPerson2 = true;
             }
 
             if (coolPerson)
             {
-                TimeSpan betterTime = TimeSpan.Parse(time_span1);
-
-                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
-
-                time_span1 = newTime.ToString();
-
-
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Subtract(TimeSpan.FromSeconds(10));
+                time_span1 = betterTime.ToString("mm':'ss':'fff");
             }
 
             if (coolPerson2)
             {
-                TimeSpan betterTime = TimeSpan.Parse(time_span2);
-
-                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
-
-                time_span2 = newTime.ToString();
-
-
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Subtract(TimeSpan.FromSeconds(10));
+                time_span2 = betterTime.ToString("mm':'ss':'fff");
             }
-
-
 
             user.Time = time_span1;
             user.Email = email;
@@ -138,6 +132,8 @@ public class Application
             runStart = false;
             runStop = false;
             runStop2 = false;
+            coolPerson = false;
+            coolPerson2 = false;
 
             // save state
             return await SaveState();
@@ -181,22 +177,19 @@ public class Application
         runStop2 = true;
     }
 
+    //public void setStopTime()
+    //{
+    //    time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
+    //    time_span1 = "01:10:00";
+    //    runStop = true;
+    //}
 
-    public void setStopTime()
-    {
-
-
-        //time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
-        time_span1 = "01:10:00";
-        runStop = true;
-    }
-
-    public void setStopTime2()
-    {
-        //time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
-        time_span2 = "00:09:11";
-        runStop2 = true;
-    }
+    //public void setStopTime2()
+    //{
+    //    time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
+    //    time_span2 = "00:09:11";
+    //    runStop2 = true;
+    //}
 
     public void simulateStartTime()
     {
@@ -246,7 +239,6 @@ public class Application
         else
         {
             return false;
-
         }
     }
 
