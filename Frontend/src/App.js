@@ -7,7 +7,7 @@ import Stopwatch from "./Stopwatch/Stopwatch";
 function App() {
   const [title, setTitle] = useState("");
   const [users, setUsers] = useState([]);
-  let [newUsers, setNewUsers] = useState([]);
+  let [allUsers, setAllUsers] = useState([]); //usortert liste med brukere
 
   useEffect(() => {
     fetch("https://localhost:5050/GetCurrentTopListName", {
@@ -32,7 +32,7 @@ function App() {
       .then((res) => setUsers(res));
   };
 
-  const fetchNewUsers = () => {
+  const fetchAllUsers = () => {
     fetch("https://localhost:5050/GetAllUsersList", {
       method: "GET",
     })
@@ -42,17 +42,17 @@ function App() {
         }
         return res.json();
       })
-      .then((res) => setNewUsers(res));
+      .then((res) => setAllUsers(res));
   }
 
   useEffect(() => {
     fetchUsers();
-    fetchNewUsers();
+    fetchAllUsers();
   }, []);
 
   function handleSubmit() {
     fetchUsers();
-    fetchNewUsers();
+    fetchAllUsers();
   }
 
   return (
@@ -63,7 +63,7 @@ function App() {
           <Stopwatch />
         </header>
         <div className="app-body">
-          <Leaderboard users={newUsers} />
+          <Leaderboard users={allUsers} />
           <SubmitForm onSubmitted={() => handleSubmit()} />
         </div>
       </div>

@@ -29,18 +29,29 @@
     margin: 0.7rem 0rem;
     border: #F9A86F 1px solid;
     background-color: #F9EAD4;
-    padding: 0.5rem;
+    padding: 0.2rem;
     border-radius: 0.5rem;
     color: #11133C;
 }
 
 .leaderboard-row-new {
-    animation: blink 4s;
+    animation: blink 6s;
 }
 
 .leaderboard-item {
     flex: 1;
-    padding: 0.1rem 1rem;
+    padding: 0.1rem 0.8rem;
+    align-items: center;
+    display: flex;
+    align-items: center;
+}
+
+.name-item {
+    flex: 7;
+}
+
+.place-item {
+    border-right: 2px #F9A86F solid;
 }
 
 .last-item {

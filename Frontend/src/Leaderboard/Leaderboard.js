@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "./Leaderboard.css";
 import { useState } from "react";
+import LeaderboardPosition from "./LeaderboardPosition"
 
 const Leaderboard = ({ users }) => {
 
@@ -25,10 +26,9 @@ const Leaderboard = ({ users }) => {
       {users && users.length > 0 ? (
         <>
           {users && sortedUsers.slice(0, 10).map((user, index) => (
-
             <div className={`leaderboard-row ${user === newestUsers[0] || user === newestUsers[1] ? "leaderboard-row-new" : "leaderboard-row"}`} key={user.index}>
-              <div className="leaderboard-item">{index + 1}</div>
-              <div className="leaderboard-item">{user.name}</div>
+              <div className="leaderboard-item place-item"><LeaderboardPosition place={index + 1}></LeaderboardPosition></div>
+              <div className="leaderboard-item name-item">{user.name}</div>
               <div className="leaderboard-item last-item">{user.time}</div>
             </div>
 
