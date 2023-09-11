@@ -56,16 +56,16 @@ public static class Controllers
     }).Produces<string>(StatusCodes.Status200OK)
       .Produces<string>(StatusCodes.Status400BadRequest);
 
-    //app.MapGet("/simulateEndTime", void (Application application) =>
-    //{
+    // app.MapGet("/simulateEndTime", void (Application application) =>
+    // {
     //  application.setStopTime();
-    //}).Produces<string>(StatusCodes.Status200OK)
+    // }).Produces<string>(StatusCodes.Status200OK)
     // .Produces<string>(StatusCodes.Status400BadRequest);
 
-    //app.MapGet("/simulateEndTime2", void (Application application) =>
-    //{
+    // app.MapGet("/simulateEndTime2", void (Application application) =>
+    // {
     //  application.setStopTime2();
-    //}).Produces<string>(StatusCodes.Status200OK)
+    // }).Produces<string>(StatusCodes.Status200OK)
     //  .Produces<string>(StatusCodes.Status400BadRequest);
 
     app.MapGet("/simulateStartTime", void (Application application) =>
@@ -74,23 +74,11 @@ public static class Controllers
     }).Produces<string>(StatusCodes.Status200OK)
       .Produces<string>(StatusCodes.Status400BadRequest);
 
-    // app.MapGet("/simulateEndTime", void (Application application) =>
-    // {
-    //   application.setStopTime();
-    // }).Produces<string>(StatusCodes.Status200OK)
-    //   .Produces<string>(StatusCodes.Status400BadRequest);
-
-    // app.MapGet("/simulateEndTime2", void (Application application) =>
-    // {
-    //   application.setStopTime2();
-    // }).Produces<string>(StatusCodes.Status200OK)
-    //    .Produces<string>(StatusCodes.Status400BadRequest);
-
-    // app.MapGet("/sendTimePlayer1", string (Application application) =>
-    // {
-    //   return application.sendTimePlayer1();
-    // }).Produces<string>(StatusCodes.Status200OK)
-    //   .Produces<string>(StatusCodes.Status400BadRequest);
+    app.MapGet("/sendTimePlayer1", string (Application application) =>
+    {
+      return application.sendTimePlayer1();
+    }).Produces<string>(StatusCodes.Status200OK)
+      .Produces<string>(StatusCodes.Status400BadRequest);
 
     app.MapGet("/sendTimePlayer2", string (Application application) =>
     {
