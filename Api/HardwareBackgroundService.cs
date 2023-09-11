@@ -34,9 +34,6 @@ public class HardwereBackgroundService : BackgroundService
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
 
-
-
-
             switch (state)
             {
                 case "waiting":
