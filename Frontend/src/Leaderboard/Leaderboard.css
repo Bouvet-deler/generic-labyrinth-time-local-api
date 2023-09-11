@@ -51,7 +51,8 @@
 }
 
 .place-item {
-    border-right: 2px #F9A86F solid;
+    border-right: 2px #f4cd91 solid;
+    background-color: #feddae;
 }
 
 .last-item {
