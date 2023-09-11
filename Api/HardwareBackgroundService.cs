@@ -17,94 +17,89 @@ public class HardwereBackgroundService : BackgroundService
     }
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        await _application.LoadTopListAsync("deafult toplist, create a new one with swagger!");
         _serialPort = new SerialPort();
-        //_serialPort.PortName = "COM4"; //Set your COM
+        //_serialPort.PortName = "COM6"; //Set your COM
         _serialPort.PortName = "/dev/tty.Bluetooth-Incoming-Port"; //kommenter ut Julie
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
         Stopwatch stopWatch1 = new Stopwatch();
-        Stopwatch stopWatch2 = new Stopwatch();
         TimeSpan ts;
-        TimeSpan ts2;
-
-        bool sensor1_har_startet = false;
-        bool sensor2_har_startet = false;
-        bool restart = false;
-        bool time_return = false;
-        string tid_spiller1 = null;
-        string tid_spiller2 = null;
-        string elapsedTime = null;
-        string elapsedTime2 = null;
-        int teller_ball = 0;
+        bool reset_from_application; ;
+        string state = "waiting";
 
         while (!stoppingToken.IsCancellationRequested)
         {
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
 
-            if (output_from_arduino == "0") // the button is pushed down
+
+
+
+            switch (state)
             {
-                SoundPlayer startSound = new SoundPlayer(@"C:\Users\burhan.sarfraz\source\repos\generic-high-score-local-api\Api\start_sound.wav");
-                startSound.Play();
-                Thread.Sleep(5000);
-                Console.WriteLine("Tid startet");
-                stopWatch1.Start();
-                stopWatch2.Start();
-                sensor1_har_startet = true;
-                _application.setStartTime();
-            }
+                case "waiting":
+                    if (output_from_arduino == "0") // the button is pushed down
+                    {
+                        SoundPlayer startSound = new SoundPlayer(".\\start_sound.wav");
+                        startSound.Play();
+                        Thread.Sleep(5000);
+                        Console.WriteLine("Tid startet");
+                        stopWatch1.Start();
+                        _application.setStartTime();
+                        state = "tracking player 1";
+                    }
+                    break;
+                case "tracking player 1":
 
-            if (output_from_arduino == "s")
-            {
-                Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
-                ts = stopWatch1.Elapsed;
-                ts2 = stopWatch2.Elapsed;
+                    reset_from_application = _application.sendArduinoReset(); // if needing to reset from the API, the game is going to finished state
+                    if (reset_from_application)
+                    {
+                        state = "finished";
+                    }
 
-                elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                elapsedTime2 = elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts2.Hours, ts2.Minutes, ts2.Seconds,
-                    ts2.Milliseconds / 10);
+                    if (output_from_arduino == "s")  // signals that the first player has finished
+                    {
+                        Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
+                        ts = stopWatch1.Elapsed;
 
-                teller_ball += 1;
-                sensor2_har_startet = true;
-            }
+                        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
+                            ts.Hours, ts.Minutes, ts.Seconds,
+                            ts.Milliseconds / 10);
 
-            if (teller_ball == 1 && sensor2_har_startet)
-            {
-                tid_spiller1 = elapsedTime;
-                _application.setStopTime();
-            }
-            else if (teller_ball == 2 && sensor2_har_startet)
-            {
-                tid_spiller2 = elapsedTime2;
-                _application.setStopTime2();
-                TimeSpan tsPlayer1 = TimeSpan.Parse(tid_spiller1);
-                TimeSpan tsPlayer2 = TimeSpan.Parse(tid_spiller2);
-                _application.setTheTime(tsPlayer1, tsPlayer2);
-                time_return = true;
-                Console.WriteLine(tid_spiller1);
-                Console.WriteLine(tid_spiller2);
-                sensor2_har_startet = false;
-            }
+                        TimeSpan tsPlayer1 = TimeSpan.Parse(elapsedTime);
+                        _application.setStopTime(tsPlayer1);
+                        state = "tracking player 2";
+                    }
+                    break;
+                case "tracking player 2":
+                    reset_from_application = _application.sendArduinoReset();  // if needing to reset from the API, the game is going to finished state
+                    if (reset_from_application)
+                    {
+                        state = "finished";
+                    }
 
-            restart = _application.sendArduinoReset();
+                    if (output_from_arduino == "s") // signals that the second player has finished
+                    {
+                        Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
+                        ts = stopWatch1.Elapsed;
 
-            if (restart == true)
-            {
-                // Console.WriteLine("Restart");
-                stopWatch1.Reset();
-                stopWatch2.Reset();
-                restart = false;
-                teller_ball = 0;
-                tid_spiller1 = null;
-                tid_spiller2 = null;
-                sensor2_har_startet = false;
-                elapsedTime = null;
-                elapsedTime2 = null;
-                time_return = false;
+                        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}", // Format and display the TimeSpan value.'
+                            ts.Hours, ts.Minutes, ts.Seconds,
+                            ts.Milliseconds / 10);
+
+                        TimeSpan tsPlayer2 = TimeSpan.Parse(elapsedTime);
+                        _application.setStopTime2(tsPlayer2);
+                        state = "finished";
+                    }
+                    break;
+                case "finished":
+                    stopWatch1.Reset();
+                    state = "waiting";
+                    break;
+                default:
+                    break;
             }
         }
     }

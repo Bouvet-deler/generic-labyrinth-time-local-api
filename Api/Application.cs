@@ -18,9 +18,6 @@ public class Application
 
     string? time_span2 = null;
 
-    string faketime1 = "01:01:001";
-    string faketime2 = "01:02:123";
-
     private string _path = "../Toplists/";
 
     public IResult CreateNewTopList(string toplistName)
@@ -87,13 +84,11 @@ public class Application
             // create user if it dosen't exists
             if (user == null)
             {
-                if (userName.Length < 2 || userName.Length > 10) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
             }
             if (user2 == null)
             {
-                if (userName2.Length < 2 || userName2.Length > 10) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
             }
@@ -140,25 +135,21 @@ public class Application
         runStart = true;
     }
 
-    public void setStopTime()
+    public void setStopTime(TimeSpan tsPlayer1)
     {
+        time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
         runStop = true;
     }
 
-    public void setStopTime2()
+    public void setStopTime2(TimeSpan tsPlayer2)
     {
+        time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
         runStop2 = true;
     }
 
     public void simulateStartTime()
     {
         runStart = true;
-    }
-
-    public void setTheTime(TimeSpan timePlayer1, TimeSpan timePlayer2)
-    {
-        time_span1 = timePlayer1.ToString("mm':'ss':'fff");
-        time_span2 = timePlayer2.ToString("mm':'ss':'fff");
     }
 
     public void resetTime()
@@ -176,14 +167,20 @@ public class Application
 
     public string sendTimePlayer1()
     {
-        time_span1 = faketime1;
-        return time_span1;
+        if (time_span1 != null)
+        {
+            return time_span1;
+        }
+        return "";
     }
 
     public string sendTimePlayer2()
     {
-        time_span2 = faketime2;
-        return time_span2;
+        if (time_span2 != null)
+        {
+            return time_span2;
+        }
+        return "";
     }
 
     private async Task<IResult> SaveState()
@@ -192,9 +189,12 @@ public class Application
         {
             string path = $"{_path}{CurrentTopListFileName}.txt";
 
-            JsonSerializerOptions options = new() { WriteIndented = true };
+            JsonSerializerOptions options = new()
+            {
+                WriteIndented = true
+            };
 
-            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList());
+            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList(), options);
             await File.WriteAllTextAsync(path, jsonString);
 
             return Results.Ok();
