@@ -14,7 +14,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddSingleton<Application>();
-builder.Services.AddHostedService<HardwereBackgroundService>();
+//Comment the line below if using simulate methods
+//builder.Services.AddHostedService<HardwereBackgroundService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
