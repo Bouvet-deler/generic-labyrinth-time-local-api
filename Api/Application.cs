@@ -23,7 +23,7 @@ public class Application
     public IResult CreateNewTopList(string toplistName)
     {
         string path = $"{_path}{toplistName}.txt";
-        if (File.Exists(path)) return Results.BadRequest($"Toplist {toplistName} allready exists.");
+        if (File.Exists(path)) return Results.BadRequest($"Toplist {toplistName} already exists.");
         try
         {
             File.Create(path).Close();
@@ -76,6 +76,8 @@ public class Application
         {
             string upperUserName = userName.ToUpper().TrimEnd();
             string upperUserName2 = userName2.ToUpper().TrimEnd();
+            bool coolPerson = false;
+            bool coolPerson2 = false;
 
             // check if user exists 
             User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
@@ -86,12 +88,44 @@ public class Application
             {
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
+                if (checkIfCoolPerson(upperUserName))
+                {
+                    coolPerson = true;
+                }
             }
             if (user2 == null)
             {
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
+                if (checkIfCoolPerson(upperUserName2))
+                {
+                    coolPerson2 = true;
+                }
             }
+
+            if (coolPerson)
+            {
+                TimeSpan betterTime = TimeSpan.Parse(time_span1);
+
+                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
+
+                time_span1 = newTime.ToString();
+
+
+            }
+
+            if (coolPerson2)
+            {
+                TimeSpan betterTime = TimeSpan.Parse(time_span2);
+
+                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
+
+                time_span2 = newTime.ToString();
+
+
+            }
+
+
 
             user.Time = time_span1;
             user.Email = email;
@@ -147,6 +181,23 @@ public class Application
         runStop2 = true;
     }
 
+
+    public void setStopTime()
+    {
+
+
+        //time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
+        time_span1 = "01:10:00";
+        runStop = true;
+    }
+
+    public void setStopTime2()
+    {
+        //time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
+        time_span2 = "00:09:11";
+        runStop2 = true;
+    }
+
     public void simulateStartTime()
     {
         runStart = true;
@@ -181,6 +232,22 @@ public class Application
             return time_span2;
         }
         return "";
+    }
+
+    public bool checkIfCoolPerson(string s)
+    {
+        string[] arr = { "WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
+        string searchElement = s;
+        bool exists = Array.Exists(arr, element => element == searchElement);
+        if (exists)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+
+        }
     }
 
     private async Task<IResult> SaveState()
