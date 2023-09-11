@@ -111,13 +111,21 @@ public class Application
 
             if (coolPerson)
             {
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Subtract(TimeSpan.FromSeconds(10));
+                // Add 10 seconds to final time
+                //TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
+
+                // Subtract 10 seconds from final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
                 time_span1 = betterTime.ToString("mm':'ss':'fff");
             }
 
             if (coolPerson2)
             {
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Subtract(TimeSpan.FromSeconds(10));
+                // Add 10 seconds to final time
+                //TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
+
+                // Subtract 10 seconds from final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
                 time_span2 = betterTime.ToString("mm':'ss':'fff");
             }
 
