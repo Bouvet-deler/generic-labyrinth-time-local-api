@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Leaderboard.css";
+import { useState } from "react";
+import LeaderboardPosition from "./LeaderboardPosition"
 
 const Leaderboard = ({ users }) => {
-  const lowestTime = Math.min(...users.map(user => user.time))
+
+  const newestUsers = users.slice(-2);
+  const sortedUsers = [...users]
+
+  sortedUsers.sort((a, b) => {
+    const timeA = parseTime(a.time);
+    const timeB = parseTime(b.time);
+    return timeA - timeB;
+  });
+
+  function parseTime(timeString) {
+    if (timeString !== null) {
+      const [minutes, seconds, milliseconds] = timeString.split(':').map(Number);
+      return minutes * 60000 + seconds * 1000 + milliseconds;
+    }
+  }
+
   return (
     <article className="leaderboard--wrapper">
       <h2 className="leaderboard__header">Leaderboard</h2>
+
       {users && users.length > 0 ? (
-        <div className="leaderboard">
-          {users &&
-            users.slice(0, 10).map((user, index) => (
-              // <li key={user.name}>{user.name} {user.time === lowestTime ? "I am the Winner" : ""}</li>
-              <div key={user.name} className="leaderboard-item">
-                <span>{index + 1}:</span>
-                <span>{index === -1 ? user.name + "hei" : user.name}</span>
-                <span>{user.time}</span>
-              </div>
-            ))}
-        </div>
+        <>
+          {users && sortedUsers.slice(0, 15).map((user, index) => (
+            <div key={index} className={`leaderboard-row ${user === newestUsers[0] || user === newestUsers[1] ? "leaderboard-row-new" : "leaderboard-row"}`}>
+              <div className="leaderboard-item place-item"><LeaderboardPosition place={index + 1}></LeaderboardPosition></div>
+              <div className="leaderboard-item name-item">{user.name}</div>
+              <div className="leaderboard-item last-item">{user.time}</div>
+            </div>
+
+          ))
+          }
+        </>
       ) : (
         <div className="no_scores_container">No registered scores</div>
-      )}
+      )
+      }
     </article>
   );
 };

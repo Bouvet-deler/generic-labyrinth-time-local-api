@@ -74,19 +74,18 @@ public class Application
     {
         try
         {
-            string upperUserName = userName.ToUpper();
-            string upperUserName2 = userName2.ToUpper();
+            string upperUserName = userName.ToUpper().TrimEnd();
+            string upperUserName2 = userName2.ToUpper().TrimEnd();
             bool coolPerson = false;
             bool coolPerson2 = false;
 
             // check if user exists 
-            User? user = CurrentToplist.Find(u => u.Name.Equals(upperUserName));
-            User? user2 = CurrentToplist.Find(u => u.Name.Equals(upperUserName2));
+            User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
+            User? user2 = CurrentToplist.Find(u => u.Email.Equals(upperUserName2));
 
             // create user if it dosen't exists
             if (user == null)
             {
-                if (userName.Length < 2 || userName.Length > 20) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
                 if (checkIfCoolPerson(upperUserName))
@@ -96,7 +95,6 @@ public class Application
             }
             if (user2 == null)
             {
-                if (userName2.Length < 2 || userName2.Length > 20) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
                 if (checkIfCoolPerson(upperUserName2))
@@ -258,9 +256,12 @@ public class Application
         {
             string path = $"{_path}{CurrentTopListFileName}.txt";
 
-            JsonSerializerOptions options = new() { WriteIndented = true };
+            JsonSerializerOptions options = new()
+            {
+                WriteIndented = true
+            };
 
-            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList());
+            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList(), options);
             await File.WriteAllTextAsync(path, jsonString);
 
             return Results.Ok();
