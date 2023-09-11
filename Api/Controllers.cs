@@ -25,7 +25,6 @@ public static class Controllers
     // }).Produces<List<User>>(StatusCodes.Status200OK)
     //   .Produces<string>(StatusCodes.Status400BadRequest);
 
-
     app.MapGet("/ListAllTopLists", IResult (Application application) =>
     {
       return application.ListAllTopLists();
