@@ -19,8 +19,7 @@ public class HardwereBackgroundService : BackgroundService
     {
         await _application.LoadTopListAsync("deafult toplist, create a new one with swagger!");
         _serialPort = new SerialPort();
-        //_serialPort.PortName = "COM6"; //Set your COM
-        _serialPort.PortName = "/dev/tty.Bluetooth-Incoming-Port"; //kommenter ut Julie
+        _serialPort.PortName = "COM6"; //Set your COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
