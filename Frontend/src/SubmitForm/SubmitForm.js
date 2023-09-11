@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
 import "./SubmitForm.css";
-import Stopwatch from "../Stopwatch/Stopwatch";
 
 const SubmitForm = ({ onSubmitted }) => {
   const [username, setUsername] = useState("");
@@ -16,13 +15,18 @@ const SubmitForm = ({ onSubmitted }) => {
   const [loading, setLoading] = useState(false);
   const [successfulPost, setSuccessfulPost] = useState(false);
   const [isSubmittingForm, setIsSubmittingForm] = useState(false);
-  const [showForm, setShowForm] = useState(false);
 
   const handleTime = (() => {
     setIsSubmittingForm(true);
     handleAutofillTime();
     handleAutofillTime2();
   });
+
+  const handleSend = (() => {
+    if (successfulPost) {
+      setIsSubmittingForm(false);
+    }
+  })
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -130,44 +134,34 @@ const SubmitForm = ({ onSubmitted }) => {
         <form className="submit-form" onSubmit={handleSubmit} id="submit-form" aria-describedby="submit-form__message">
           <div className="submit-form__fieldset-container">
             <fieldset className="submit-form__fieldset">
-              <ul className="submit-form__ul">
-                <li>
-                  <label className="submit-form__label">First- and lastname:</label>
-                  <input className="submit-form__input" type="text" value={username} onChange={handleUserNameChange} required placeholder="Player1" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Time:</label>
-                  <input className="submit-form__input" type="text" value={time} onChange={handleTimeChange} required readOnly placeholder="00:00:000" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Email:</label>
-                  <input className="submit-form__input" type="email" value={email} onChange={handleEmailChange} required placeholder="email@example.com" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Phone number</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber} onChange={handlePhoneNumberChange} required />
-                </li>
-              </ul>
+
+              <label className="submit-form__label" for="name1">Full Name</label>
+              <input className="submit-form__input" type="text" id="name1" value={username} onChange={handleUserNameChange} required placeholder="Player1" />
+
+              <label className="submit-form__label" for="time1">Time</label>
+              <input className="submit-form__input" type="text" id="time1" value={time} onChange={handleTimeChange} required readOnly placeholder="00:00:000" />
+
+              <label className="submit-form__label" for="email1">Email Address</label>
+              <input className="submit-form__input" id="email1" type="email" value={email} onChange={handleEmailChange} required placeholder="email@example.com" />
+
+              <label className="submit-form__label" for="phone1">Phone number</label>
+              <input className="submit-form__input" type="text" id="phone1" value={phoneNumber} onChange={handlePhoneNumberChange} required />
+
             </fieldset>
             <fieldset className="submit-form__fieldset">
-              <ul className="submit-form__ul">
-                <li>
-                  <label className="submit-form__label">First- and lastname:</label>
-                  <input className="submit-form__input" type="text" value={username2} onChange={handleUserNameChange2} required placeholder="Player2" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Time:</label>
-                  <input className="submit-form__input" type="text" value={time2} onChange={handleTimeChange2} required readOnly placeholder="00:00:000" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Email:</label>
-                  <input className="submit-form__input" type="email" value={email2} onChange={handleEmailChange2} required placeholder="email@example.com" />
-                </li>
-                <li>
-                  <label className="submit-form__label">Phone number:</label>
-                  <input className="submit-form__input" type="text" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
-                </li>
-              </ul>
+
+              <label className="submit-form__label" for="name2">Full Name</label>
+              <input className="submit-form__input" type="text" id="name2" value={username2} onChange={handleUserNameChange2} required placeholder="Player2" />
+
+              <label className="submit-form__label" for="time2">Time</label>
+              <input className="submit-form__input" id="time2" type="text" value={time2} onChange={handleTimeChange2} required readOnly placeholder="00:00:000" />
+
+              <label className="submit-form__label" for="email2">Email Address</label>
+              <input className="submit-form__input" type="email" id="email2" value={email2} onChange={handleEmailChange2} required placeholder="email@example.com" />
+
+              <label className="submit-form__label" for="phone2">Phone number</label>
+              <input className="submit-form__input" type="text" id="phone2" value={phoneNumber2} onChange={handlePhoneNumberChange2} required />
+
             </fieldset>
           </div>
           {errorMessage && (
@@ -176,7 +170,7 @@ const SubmitForm = ({ onSubmitted }) => {
             </p>
           )}
           {successfulPost && <p className="submit-form__success">Registered!</p>}
-          <button type="submit" disabled={time === "" || username === ""} className="submit-form__submit">
+          <button type="submit" className="submit-form__submit" onClick={handleSend}>
             Send
           </button>
         </form>
