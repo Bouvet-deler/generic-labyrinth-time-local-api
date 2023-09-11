@@ -19,19 +19,23 @@ public class HardwereBackgroundService : BackgroundService
     {
         await _application.LoadTopListAsync("deafult toplist, create a new one with swagger!");
         _serialPort = new SerialPort();
-        _serialPort.PortName = "COM3"; //Set your COM
+        _serialPort.PortName = "COM6"; //Set your COM
         _serialPort.BaudRate = 115200;
         _serialPort.Open();
 
         Stopwatch stopWatch1 = new Stopwatch();
         TimeSpan ts;
-
+        bool reset_from_application; ;
         string state = "waiting";
 
         while (!stoppingToken.IsCancellationRequested)
         {
             await Task.Yield();
             string output_from_arduino = _serialPort.ReadExisting();
+
+
+
+
             switch (state)
             {
                 case "waiting":
@@ -47,7 +51,14 @@ public class HardwereBackgroundService : BackgroundService
                     }
                     break;
                 case "tracking player 1":
-                    if (output_from_arduino == "s")
+
+                    reset_from_application = _application.sendArduinoReset(); // if needing to reset from the API, the game is going to finished state
+                    if (reset_from_application)
+                    {
+                        state = "finished";
+                    }
+
+                    if (output_from_arduino == "s")  // signals that the first player has finished
                     {
                         Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
                         ts = stopWatch1.Elapsed;
@@ -62,7 +73,13 @@ public class HardwereBackgroundService : BackgroundService
                     }
                     break;
                 case "tracking player 2":
-                    if (output_from_arduino == "s")
+                    reset_from_application = _application.sendArduinoReset();  // if needing to reset from the API, the game is going to finished state
+                    if (reset_from_application)
+                    {
+                        state = "finished";
+                    }
+
+                    if (output_from_arduino == "s") // signals that the second player has finished
                     {
                         Console.WriteLine("Sensor har registrert ball"); // the sensor has registered the ball
                         ts = stopWatch1.Elapsed;
