@@ -189,9 +189,12 @@ public class Application
         {
             string path = $"{_path}{CurrentTopListFileName}.txt";
 
-            JsonSerializerOptions options = new() { WriteIndented = true };
+            JsonSerializerOptions options = new()
+            {
+                WriteIndented = true
+            };
 
-            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList());
+            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList(), options);
             await File.WriteAllTextAsync(path, jsonString);
 
             return Results.Ok();
