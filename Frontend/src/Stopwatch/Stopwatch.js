@@ -8,7 +8,9 @@ function Stopwatch() {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [lapTime, setLapTime] = useState(0);
   const [lapTime2, setLapTime2] = useState(0);
-  const [resetAndStart, setReset] = useState(false); 
+  const [resetAndStart, setReset] = useState(false);
+  const [waitingForStartSignal, setWaitingForStartSignal] =  useState(false);
+  const [afterRun, setAfterRun] =  useState(false);
 
 
   useEffect(() => {
@@ -33,19 +35,24 @@ function Stopwatch() {
     }
     if (p1d && p2d) {
       setRunning(false);
+      setWaitingForStartSignal(false);
       setElapsedTime("FINISHED");
+      resetAfterRun();
     }
   }, [p1d, p2d]);
 
 
   useEffect(() => {
     if (resetAndStart) {
+      setWaitingForStartSignal(true);
       start();
       setReset(false);
     }
   }, [resetAndStart]);
 
+
   const start = async () => {
+    setAfterRun(false);
     let started = false;
     while (!started) {
       await new Promise(r => setTimeout(r, 100));
@@ -71,6 +78,7 @@ function Stopwatch() {
     let playerOneDone = false;
     let playerTwoDone = false;
     let allPlayersDone = false;
+
     while (allPlayersDone === false) {
       if (playerOneDone === false) {
         await new Promise(r => setTimeout(r, 100));
@@ -124,11 +132,51 @@ function Stopwatch() {
         setRunning(false);
         //running = false;
         setElapsedTime(0);
-        setReset(start);
+        setReset(true);
         if (!res.ok) {
           throw res;
         }
       })
+  };
+
+  const resetAfterRun = async () => {
+    fetch(`https://localhost:5050/ResetTime`, {
+      method: "GET",
+    })
+      .then((res) => {
+        setP1d(false);
+        setP2d(false);
+        setRunning(false);
+        //running = false;
+        setElapsedTime(0);
+        setReset(true);
+        if (!res.ok) {
+          throw res;
+        }
+      })
+
+      setAfterRun(false);
+      let started = false;
+      while (!started) {
+        await new Promise(r => setTimeout(r, 100));
+        fetch("https://localhost:5050/StartTime", {
+          method: "GET",
+        })
+          .then(async (res) => {
+            let text = await new Response(res.body).text();
+            if (started === true) {
+              return;
+            }
+            if (text === "true") {
+              setLapTime(0);
+              setLapTime2(0);
+              started = true;
+              setStartTime(Date.now() - elapsedTime);
+              setRunning(true);
+              getEnd();
+            }
+          })
+      }
   };
 
   const getLapTime = () => {
@@ -139,7 +187,7 @@ function Stopwatch() {
         }
           const runTime = await res.text().then((text) => {
               console.log(text)
-          return text.toString();
+          return "🥳🎉Winner: " + text.toString() + " 🎉🎊";
         })
         setLapTime(runTime);
       });
@@ -153,7 +201,7 @@ function Stopwatch() {
         }
           const runTime = await res.text().then((text) => {
               console.log(text)
-          return text.toString();
+          return "🥳🎉Second place: " + text.toString() + " 🎉🎊";
         })
         setLapTime2(runTime);
       });
@@ -178,7 +226,8 @@ function Stopwatch() {
   return (
     <div className="stopwatch">
       <p>{formatTime(elapsedTime)}</p>
-      <button className="button" onClick={reset}>New round</button>
+      <button className="button" disabled={waitingForStartSignal} onClick={reset} >{waitingForStartSignal ? "Waiting for start signal" : "New round"}</button>
+      <button className="button" onClick={reset}>Reset</button>
       {lapTime !== 0 && (
         <p>{lapTime}</p>
       )}
