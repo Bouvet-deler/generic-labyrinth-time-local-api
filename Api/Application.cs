@@ -74,12 +74,12 @@ public class Application
     {
         try
         {
-            string upperUserName = userName.ToUpper();
-            string upperUserName2 = userName2.ToUpper();
+            string upperUserName = userName.ToUpper().TrimEnd();
+            string upperUserName2 = userName2.ToUpper().TrimEnd();
 
             // check if user exists 
-            User? user = CurrentToplist.Find(u => u.Name.Equals(upperUserName));
-            User? user2 = CurrentToplist.Find(u => u.Name.Equals(upperUserName2));
+            User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
+            User? user2 = CurrentToplist.Find(u => u.Email.Equals(upperUserName2));
 
             // create user if it dosen't exists
             if (user == null)
