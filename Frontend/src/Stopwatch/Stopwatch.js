@@ -9,8 +9,8 @@ function Stopwatch() {
   const [lapTime, setLapTime] = useState(0);
   const [lapTime2, setLapTime2] = useState(0);
   const [resetAndStart, setReset] = useState(false);
-  const [waitingForStartSignal, setWaitingForStartSignal] =  useState(false);
-  const [afterRun, setAfterRun] =  useState(false);
+  const [waitingForStartSignal, setWaitingForStartSignal] = useState(false);
+  const [afterRun, setAfterRun] = useState(false);
 
 
   useEffect(() => {
@@ -55,7 +55,7 @@ function Stopwatch() {
     setAfterRun(false);
     let started = false;
     while (!started) {
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 200));
       fetch("https://localhost:5050/StartTime", {
         method: "GET",
       })
@@ -155,28 +155,28 @@ function Stopwatch() {
         }
       })
 
-      setAfterRun(false);
-      let started = false;
-      while (!started) {
-        await new Promise(r => setTimeout(r, 100));
-        fetch("https://localhost:5050/StartTime", {
-          method: "GET",
+    setAfterRun(false);
+    let started = false;
+    while (!started) {
+      await new Promise(r => setTimeout(r, 200));
+      fetch("https://localhost:5050/StartTime", {
+        method: "GET",
+      })
+        .then(async (res) => {
+          let text = await new Response(res.body).text();
+          if (started === true) {
+            return;
+          }
+          if (text === "true") {
+            setLapTime(0);
+            setLapTime2(0);
+            started = true;
+            setStartTime(Date.now() - elapsedTime);
+            setRunning(true);
+            getEnd();
+          }
         })
-          .then(async (res) => {
-            let text = await new Response(res.body).text();
-            if (started === true) {
-              return;
-            }
-            if (text === "true") {
-              setLapTime(0);
-              setLapTime2(0);
-              started = true;
-              setStartTime(Date.now() - elapsedTime);
-              setRunning(true);
-              getEnd();
-            }
-          })
-      }
+    }
   };
 
   const getLapTime = () => {
@@ -185,8 +185,8 @@ function Stopwatch() {
         if (!res.ok) {
           throw res;
         }
-          const runTime = await res.text().then((text) => {
-              console.log(text)
+        const runTime = await res.text().then((text) => {
+          console.log(text)
           return "🥳🎉Winner: " + text.toString() + " 🎉🎊";
         })
         setLapTime(runTime);
@@ -199,8 +199,8 @@ function Stopwatch() {
         if (!res.ok) {
           throw res;
         }
-          const runTime = await res.text().then((text) => {
-              console.log(text)
+        const runTime = await res.text().then((text) => {
+          console.log(text)
           return "🥳🎉Second place: " + text.toString() + " 🎉🎊";
         })
         setLapTime2(runTime);
