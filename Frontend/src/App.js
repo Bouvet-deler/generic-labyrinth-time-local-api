@@ -7,6 +7,7 @@ import Stopwatch from "./Stopwatch/Stopwatch";
 function App() {
   const [title, setTitle] = useState("");
   const [users, setUsers] = useState([]);
+  let [allUsers, setAllUsers] = useState([]); //usortert liste med brukere
 
   useEffect(() => {
     fetch("https://localhost:5050/GetCurrentTopListName", {
@@ -31,9 +32,28 @@ function App() {
       .then((res) => setUsers(res));
   };
 
+  const fetchAllUsers = () => {
+    fetch("https://localhost:5050/GetAllUsersList", {
+      method: "GET",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return [];
+        }
+        return res.json();
+      })
+      .then((res) => setAllUsers(res));
+  }
+
   useEffect(() => {
     fetchUsers();
+    fetchAllUsers();
   }, []);
+
+  function handleSubmit() {
+    fetchUsers();
+    fetchAllUsers();
+  }
 
   return (
     <>
@@ -43,8 +63,8 @@ function App() {
           <Stopwatch />
         </header>
         <div className="app-body">
-          <Leaderboard users={users} />
-          <SubmitForm onSubmitted={fetchUsers} />
+          <Leaderboard users={allUsers} />
+          <SubmitForm onSubmitted={() => handleSubmit()} />
         </div>
       </div>
       <img src="./illustration.png" style={{ marginTop: "-3rem", marginLeft: "2rem" }}></img>
