@@ -107,16 +107,27 @@ public class Application
 
             if (coolPerson)
             {
-              //  TimeSpan go = TimeSpan.Parse(time_span1);
+                TimeSpan betterTime = TimeSpan.Parse(time_span1);
 
-              //  TimeSpan newGo = go.Subtract(TimeSpan.FromSeconds(1));
+                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
 
-              //  Console.WriteLine(go.ToString() + " - " + newGo);
+                time_span1 = newTime.ToString();
 
 
             }
 
-            
+            if (coolPerson2)
+            {
+                TimeSpan betterTime = TimeSpan.Parse(time_span2);
+
+                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
+
+                time_span2 = newTime.ToString();
+
+
+            }
+
+
 
             user.Time = time_span1;
             user.Email = email;
