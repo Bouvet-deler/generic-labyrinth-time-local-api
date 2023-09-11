@@ -84,13 +84,11 @@ public class Application
             // create user if it dosen't exists
             if (user == null)
             {
-                if (userName.Length < 2 || userName.Length > 20) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
             }
             if (user2 == null)
             {
-                if (userName2.Length < 2 || userName2.Length > 20) return Results.BadRequest("Username must be between 2 and 10 letters.");
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
             }
