@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using System.Net;
+using System.Globalization;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 public class Application
@@ -7,6 +9,8 @@ public class Application
     public string CurrentTopListFileName { get; private set; } = "deafult toplist, create a new one with swagger!";
 
     public List<User> CurrentToplist { get; private set; } = new();
+
+    CultureInfo culture = null;
 
     bool runStart = false;
 
@@ -80,6 +84,8 @@ public class Application
             string upperUserName2 = userName2.ToUpper().TrimEnd();
             bool coolPerson = false;
             bool coolPerson2 = false;
+            bool veryCoolPerson = false;
+            bool veryCoolPerson2 = false;
 
             // check if user exists 
             User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
@@ -90,37 +96,72 @@ public class Application
             {
                 user = new User(upperUserName);
                 CurrentToplist.Add(user);
-                if (checkIfCoolPerson(upperUserName))
-                {
-                    coolPerson = true;
-                }
             }
+
             if (user2 == null)
             {
                 user2 = new User(upperUserName2);
                 CurrentToplist.Add(user2);
-                if (checkIfCoolPerson(upperUserName2))
-                {
-                    coolPerson2 = true;
-                }
+            }
+
+            if (checkIfCoolPerson(upperUserName))
+            {
+                coolPerson = true;
+            }
+
+            if (checkIfCoolPerson(upperUserName2))
+            {
+                coolPerson2 = true;
+            }
+
+            if (checkIfVeryCoolPerson(upperUserName))
+            {
+                veryCoolPerson = true;
+            }
+
+            if(checkIfVeryCoolPerson(upperUserName2))
+            { 
+                veryCoolPerson2 = true; 
             }
 
             if (coolPerson)
             {
-                TimeSpan betterTime = TimeSpan.Parse(time_span1);
+                // Add 10 seconds to final time
+                //TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
 
-                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
-
-                time_span1 = newTime.ToString();
+                // Subtract 10 seconds from final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
+                time_span1 = betterTime.ToString("mm':'ss':'fff");
             }
 
             if (coolPerson2)
             {
-                TimeSpan betterTime = TimeSpan.Parse(time_span2);
+                // Add 10 seconds to final time
+                //TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
 
-                TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
+                // Subtract 10 seconds from final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
+                time_span2 = betterTime.ToString("mm':'ss':'fff");
+            }
 
-                time_span2 = newTime.ToString();
+            if (veryCoolPerson)
+            {
+                // Add 10 seconds to final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
+
+                // Subtract 10 seconds from final time
+               // TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                time_span1 = betterTime.ToString("mm':'ss':'fff");
+            }
+
+            if (veryCoolPerson2)
+            {
+                // Add 10 seconds to final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
+
+                // Subtract 10 seconds from final time
+               // TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                time_span2 = betterTime.ToString("mm':'ss':'fff");
             }
 
             user.Time = time_span1;
@@ -134,6 +175,10 @@ public class Application
             runStart = false;
             runStop = false;
             runStop2 = false;
+            coolPerson = false;
+            coolPerson2 = false;
+            veryCoolPerson = false;
+            veryCoolPerson2 = false;
 
             // save state
             return await SaveState();
@@ -177,20 +222,19 @@ public class Application
         runStop2 = true;
     }
 
+    //public void setStopTime()
+    //{
+    //    time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
+    //    time_span1 = "01:10:00";
+    //    runStop = true;
+    //}
 
-    public void setStopTime()
-    {
-        //time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
-        time_span1 = "01:10:00";
-        runStop = true;
-    }
-
-    public void setStopTime2()
-    {
-        //time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
-        time_span2 = "00:09:11";
-        runStop2 = true;
-    }
+    //public void setStopTime2()
+    //{
+    //    time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
+    //    time_span2 = "00:09:11";
+    //    runStop2 = true;
+    //}
 
     public void simulateStartTime()
     {
@@ -230,7 +274,7 @@ public class Application
 
     public bool checkIfCoolPerson(string s)
     {
-        string[] arr = { "WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
+        string[] arr = { "VETLE","WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
         string searchElement = s;
         bool exists = Array.Exists(arr, element => element == searchElement);
         if (exists)
@@ -242,7 +286,22 @@ public class Application
             return false;
         }
     }
-
+  
+    public bool checkIfVeryCoolPerson(string s)
+    {
+        string[] arr = { "VEBJØRN", "JOHAN" };
+        string searchElement = s;
+        bool exists = Array.Exists(arr, element => element == searchElement);
+        if (exists)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+  
     public List<User> pickWinnersFromList(int numberOfWinners)
     {
         Random random = new Random();
@@ -260,7 +319,6 @@ public class Application
             users.RemoveAt(winner);
             index++;
         }
-
         return listWithWinners;
     }
 

@@ -12,7 +12,6 @@ function Stopwatch() {
   const [waitingForStartSignal, setWaitingForStartSignal] = useState(false);
   const [afterRun, setAfterRun] = useState(false);
 
-
   useEffect(() => {
     let timer;
     if (running) {
@@ -41,7 +40,6 @@ function Stopwatch() {
     }
   }, [p1d, p2d]);
 
-
   useEffect(() => {
     if (resetAndStart) {
       setWaitingForStartSignal(true);
@@ -49,7 +47,6 @@ function Stopwatch() {
       setReset(false);
     }
   }, [resetAndStart]);
-
 
   const start = async () => {
     setAfterRun(false);
@@ -226,7 +223,7 @@ function Stopwatch() {
   return (
     <div className="stopwatch">
       <p>{formatTime(elapsedTime)}</p>
-      <button className="button" disabled={waitingForStartSignal} onClick={reset} >{waitingForStartSignal ? "Waiting for start signal" : "New round"}</button>
+      <button className="button" disabled={waitingForStartSignal} hidden={running} onClick={reset} >{waitingForStartSignal ? "Waiting for start signal" : "New round"}</button>
       <button className="button" onClick={reset}>Reset</button>
       {lapTime !== 0 && (
         <p>{lapTime}</p>
