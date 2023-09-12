@@ -59,7 +59,11 @@ public class Application
     public async Task<IResult> LoadTopListAsync(string toplistName)
     {
         string path = $"{_path}{toplistName}.txt";
-        if (!File.Exists(path)) return Results.BadRequest($"Toplist {toplistName} does not exists.");
+        if (!File.Exists(path))
+        {
+            return Results.BadRequest($"Toplist {toplistName} does not exists.");
+        }
+
         try
         {
             // Create the file, or overwrite if the file exists.
@@ -102,6 +106,7 @@ public class Application
                 CurrentToplist.Add(user2);
             }
 
+            // cheat codes for users with a specific name
             if (checkIfCoolPerson(upperUserName))
             {
                 coolPerson = true;
@@ -117,9 +122,9 @@ public class Application
                 veryCoolPerson = true;
             }
 
-            if(checkIfVeryCoolPerson(upperUserName2))
-            { 
-                veryCoolPerson2 = true; 
+            if (checkIfVeryCoolPerson(upperUserName2))
+            {
+                veryCoolPerson2 = true;
             }
 
             if (coolPerson)
@@ -148,7 +153,7 @@ public class Application
                 TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
 
                 // Subtract 10 seconds from final time
-               // TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                // TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
                 time_span1 = betterTime.ToString("mm':'ss':'fff");
             }
 
@@ -158,7 +163,7 @@ public class Application
                 TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
 
                 // Subtract 10 seconds from final time
-               // TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                // TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
                 time_span2 = betterTime.ToString("mm':'ss':'fff");
             }
 
@@ -203,6 +208,11 @@ public class Application
         return runStop2;
     }
 
+    public void simulateStartTime()
+    {
+        runStart = true;
+    }
+
     public void setStartTime()
     {
         runStart = true;
@@ -220,24 +230,20 @@ public class Application
         runStop2 = true;
     }
 
+    // Functions to simulate stop signal and lap time for both users
+    // when not connected to the sensor/microcontroller
+
     //public void setStopTime()
     //{
-    //    time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
     //    time_span1 = "01:10:00";
     //    runStop = true;
     //}
 
     //public void setStopTime2()
     //{
-    //    time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
     //    time_span2 = "00:09:11";
     //    runStop2 = true;
     //}
-
-    public void simulateStartTime()
-    {
-        runStart = true;
-    }
 
     public void resetTime()
     {
@@ -272,7 +278,7 @@ public class Application
 
     public bool checkIfCoolPerson(string s)
     {
-        string[] arr = { "VETLE","WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
+        string[] arr = { "VETLE", "WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
         string searchElement = s;
         bool exists = Array.Exists(arr, element => element == searchElement);
         if (exists)
@@ -284,7 +290,7 @@ public class Application
             return false;
         }
     }
-  
+
     public bool checkIfVeryCoolPerson(string s)
     {
         string[] arr = { "VEBJØRN", "JOHAN" };
@@ -299,25 +305,32 @@ public class Application
             return false;
         }
     }
-  
-    public List<User> pickWinnersFromList(int numberOfWinners)
+
+    public IResult pickRandomWinnersFromList(int numberOfWinners)
     {
-        Random random = new Random();
-        using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
-        var json = reader.ReadToEnd();
-
-        List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
-        List<User> listWithWinners = new List<User>();
-
-        int index = 0;
-        while (index < numberOfWinners)
+        try
         {
-            int winner = random.Next(0, users.Count);
-            listWithWinners.Add(users[winner]);
-            users.RemoveAt(winner);
-            index++;
+            Random random = new Random();
+            using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
+            var json = reader.ReadToEnd();
+
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+            List<User> listWithWinners = new List<User>();
+
+            int index = 0;
+            while (index < numberOfWinners)
+            {
+                int winner = random.Next(0, users.Count);
+                listWithWinners.Add(users[winner]);
+                users.RemoveAt(winner);
+                index++;
+            }
+            return Results.Ok(listWithWinners);
         }
-        return listWithWinners;
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
     }
 
     private async Task<IResult> SaveState()
