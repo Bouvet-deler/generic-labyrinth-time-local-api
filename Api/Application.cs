@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using System;
 using System.Text.Json;
 
 public class Application
@@ -60,7 +62,7 @@ public class Application
         {
             // Create the file, or overwrite if the file exists.
             string fileContent = await File.ReadAllTextAsync(path);
-            CurrentToplist = JsonSerializer.Deserialize<List<User>>(fileContent)!;
+            CurrentToplist = System.Text.Json.JsonSerializer.Deserialize<List<User>>(fileContent)!;
             CurrentTopListFileName = toplistName;
             return Results.Ok($"\"{toplistName}\" loaded and is now the active toplist.");
         }
@@ -110,8 +112,6 @@ public class Application
                 TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
 
                 time_span1 = newTime.ToString();
-
-
             }
 
             if (coolPerson2)
@@ -121,11 +121,7 @@ public class Application
                 TimeSpan newTime = betterTime.Subtract(TimeSpan.FromSeconds(30));
 
                 time_span2 = newTime.ToString();
-
-
             }
-
-
 
             user.Time = time_span1;
             user.Email = email;
@@ -184,8 +180,6 @@ public class Application
 
     public void setStopTime()
     {
-
-
         //time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
         time_span1 = "01:10:00";
         runStop = true;
@@ -246,8 +240,24 @@ public class Application
         else
         {
             return false;
+        }
+    }
+
+    public List<User> pickWinnersFromList(int numberOfWinners)
+    {
+        Random random = new Random();
+        using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
+        var json = reader.ReadToEnd();
+
+        List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+        List<User> listWithWinners = new List<User>();
+
+        while ()
+        {
 
         }
+
+        return listWithWinners;
     }
 
     private async Task<IResult> SaveState()
@@ -261,7 +271,7 @@ public class Application
                 WriteIndented = true
             };
 
-            string jsonString = JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList(), options);
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(CurrentToplist.OrderBy(x => x.Time).ToList(), options);
             await File.WriteAllTextAsync(path, jsonString);
 
             return Results.Ok();
