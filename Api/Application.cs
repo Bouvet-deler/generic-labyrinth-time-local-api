@@ -89,9 +89,9 @@ public class Application
             bool veryCoolPerson = false;
             bool veryCoolPerson2 = false;
 
-            // check if user exists 
-            User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
-            User? user2 = CurrentToplist.Find(u => u.Email.Equals(upperUserName2));
+            // check if user exists
+            User? user = CurrentToplist.Find(u => u.Email.Equals(email));
+            User? user2 = CurrentToplist.Find(u => u.Email.Equals(email2));
 
             // create user if it dosen't exists
             if (user == null)
@@ -235,13 +235,13 @@ public class Application
 
     //public void setStopTime()
     //{
-    //    time_span1 = "01:10:00";
+    //    time_span1 = "01:12:000";
     //    runStop = true;
     //}
 
     //public void setStopTime2()
     //{
-    //    time_span2 = "00:09:11";
+    //    time_span2 = "00:09:110";
     //    runStop2 = true;
     //}
 
