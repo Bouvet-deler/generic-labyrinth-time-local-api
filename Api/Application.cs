@@ -1,7 +1,5 @@
 using Newtonsoft.Json;
-using System.Net;
 using System.Globalization;
-using Newtonsoft.Json;
 using System.Text.Json;
 
 public class Application
