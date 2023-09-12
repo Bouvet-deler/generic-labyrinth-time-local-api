@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using System;
+using System.Net;
 using System.Text.Json;
 
 public class Application
@@ -252,9 +252,13 @@ public class Application
         List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
         List<User> listWithWinners = new List<User>();
 
-        while ()
+        int index = 0;
+        while (index < numberOfWinners)
         {
-
+            int winner = random.Next(0, users.Count);
+            listWithWinners.Add(users[winner]);
+            users.RemoveAt(winner);
+            index++;
         }
 
         return listWithWinners;
