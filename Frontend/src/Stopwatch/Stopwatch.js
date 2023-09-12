@@ -12,7 +12,6 @@ function Stopwatch() {
   const [waitingForStartSignal, setWaitingForStartSignal] = useState(false);
   const [afterRun, setAfterRun] = useState(false);
 
-
   useEffect(() => {
     let timer;
     if (running) {
@@ -41,7 +40,6 @@ function Stopwatch() {
     }
   }, [p1d, p2d]);
 
-
   useEffect(() => {
     if (resetAndStart) {
       setWaitingForStartSignal(true);
@@ -49,7 +47,6 @@ function Stopwatch() {
       setReset(false);
     }
   }, [resetAndStart]);
-
 
   const start = async () => {
     setAfterRun(false);
