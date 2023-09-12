@@ -81,6 +81,8 @@ public class Application
             string upperUserName2 = userName2.ToUpper().TrimEnd();
             bool coolPerson = false;
             bool coolPerson2 = false;
+            bool veryCoolPerson = false;
+            bool veryCoolPerson2 = false;
 
             // check if user exists 
             User? user = CurrentToplist.Find(u => u.Email.Equals(upperUserName));
@@ -109,13 +111,23 @@ public class Application
                 coolPerson2 = true;
             }
 
+
+            if (checkIfVeryCoolPerson(upperUserName))
+            {
+                veryCoolPerson = true;
+            }
+            if(checkIfVeryCoolPerson(upperUserName2))
+            { 
+                veryCoolPerson2 = true; 
+            }
+
             if (coolPerson)
             {
                 // Add 10 seconds to final time
                 //TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
 
                 // Subtract 10 seconds from final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
                 time_span1 = betterTime.ToString("mm':'ss':'fff");
             }
 
@@ -125,7 +137,27 @@ public class Application
                 //TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
 
                 // Subtract 10 seconds from final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
+                time_span2 = betterTime.ToString("mm':'ss':'fff");
+            }
+
+            if (veryCoolPerson)
+            {
+                // Add 10 seconds to final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
+
+                // Subtract 10 seconds from final time
+               // TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
+                time_span1 = betterTime.ToString("mm':'ss':'fff");
+            }
+
+            if (veryCoolPerson2)
+            {
+                // Add 10 seconds to final time
+                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
+
+                // Subtract 10 seconds from final time
+               // TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
                 time_span2 = betterTime.ToString("mm':'ss':'fff");
             }
 
@@ -142,6 +174,8 @@ public class Application
             runStop2 = false;
             coolPerson = false;
             coolPerson2 = false;
+            veryCoolPerson = false;
+            veryCoolPerson2 = false;
 
             // save state
             return await SaveState();
@@ -237,7 +271,22 @@ public class Application
 
     public bool checkIfCoolPerson(string s)
     {
-        string[] arr = { "WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
+        string[] arr = { "VETLE","WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
+        string searchElement = s;
+        bool exists = Array.Exists(arr, element => element == searchElement);
+        if (exists)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool checkIfVeryCoolPerson(string s)
+    {
+        string[] arr = { "VEBJØRN", "JOHAN" };
         string searchElement = s;
         bool exists = Array.Exists(arr, element => element == searchElement);
         if (exists)

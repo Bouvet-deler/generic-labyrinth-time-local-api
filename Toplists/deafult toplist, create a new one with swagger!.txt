@@ -6,6 +6,18 @@
     "PhoneNumber": 31231233
   },
   {
+    "Name": "CORNELIA",
+    "Time": "00:50:420",
+    "Email": "wer@sdf.no",
+    "PhoneNumber": 234
+  },
+  {
+    "Name": "WILLIAM",
+    "Time": "00:52:910",
+    "Email": "william@ye.no",
+    "PhoneNumber": 1234123
+  },
+  {
     "Name": "JOHAN ",
     "Time": "00:53:820",
     "Email": "a@b.no",
