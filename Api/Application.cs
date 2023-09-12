@@ -116,6 +116,7 @@ public class Application
             {
                 veryCoolPerson = true;
             }
+
             if(checkIfVeryCoolPerson(upperUserName2))
             { 
                 veryCoolPerson2 = true; 
