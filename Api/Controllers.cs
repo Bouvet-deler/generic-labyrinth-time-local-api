@@ -104,6 +104,13 @@ public static class Controllers
     }).Produces<string>(StatusCodes.Status200OK)
       .Produces<string>(StatusCodes.Status400BadRequest);
 
+
+    app.MapGet("/PickWinners", List<User> (int numberOfWinners, Application application) =>
+    {
+        return application.pickWinnersFromList(numberOfWinners);
+    }).Produces<string>(StatusCodes.Status200OK)
+        .Produces<string>(StatusCodes.Status400BadRequest);
+
     return app;
-  }
+    }
 }
