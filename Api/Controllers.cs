@@ -107,7 +107,7 @@ public static class Controllers
 
 		app.MapGet("/PickRandomWinnersFromParticipants", IResult (int numberOfWinners, Application application) =>
 		{
-			return application.pickRandomWinnersFromList(numberOfWinners);
+			return application.pickRandomWinnersFromParticipants(numberOfWinners);
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 

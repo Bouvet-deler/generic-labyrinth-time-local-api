@@ -306,7 +306,7 @@ public class Application
         }
     }
 
-    public IResult pickRandomWinnersFromList(int numberOfWinners)
+    public IResult pickRandomWinnersFromParticipants(int numberOfWinners)
     {
         try
         {
