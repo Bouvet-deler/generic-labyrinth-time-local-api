@@ -62,6 +62,7 @@ https://localhost:5050/index.html
 - Both simulateEndTime methods needs to be called to stop the frontend application from counting time.
 
 # How it works
+- The webpage will continuously send get requests to the server when the **Start** button is pressed, asking for the start signal.
 - When receiving the start signal, the stopwatch will begin running.
 - The stopwatch will run until the sensor registers two entities passing it.
 - When two entities has passed the sensor, the frontend application will receive the signal that the run is over, and then it will request time taken by both participants.\
