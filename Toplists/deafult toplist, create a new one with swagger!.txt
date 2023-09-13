@@ -222,6 +222,12 @@
     "PhoneNumber": 93297375
   },
   {
+    "Name": "TORBJ\u00D8RN",
+    "Time": "03:09:890",
+    "Email": "torbjorn.solhaug@bouvet.no",
+    "PhoneNumber": 1
+  },
+  {
     "Name": "VICTORIA",
     "Time": "03:46:470",
     "Email": "testest@test.no",
