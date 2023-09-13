@@ -1,8 +1,9 @@
 # How to run
-### Visual studio
-- Either run the solution by clicking on the green arrow or use the command "dotnet run" in the terminal
+- Either run the solution by clicking on the green arrow in visual studio or use the command **"dotnet run"** in the terminal
 - Run the frontend as well, and click the **Start** button. This will make the webpage wait for a start signal from the server, which is triggered by pressing the yellow button in the room.
-
+- The stopwatch will automatically reset itself after a finished run(the sensor registers two entities passing it), and begin waiting for the next start signal\
+***Note the stopwatch time on the frontend is purely visual, its the time taken on the backend side that is the actual time.***
+  
 # How to test without the Arduino
 ## Setting up
 - Comment out this line in the file **Program.cs**
@@ -59,3 +60,12 @@ https://localhost:5050/index.html
 - The method **simulateStartSignal** will send a start signal which will cause the fronted application to start the stopwatch.
 - The method **simulateEndTime** and **simulateEndTime2** will send the end signal, which will cause the run to end. Currently, the end times are hard coded which means that the finished run times of both players will be the the same between the runs, regardless of time elapsed.
 - Both simulateEndTime methods needs to be called to stop the frontend application from counting time.
+
+# How it works
+- When receiving the start signal, the stopwatch will begin running.
+- The stopwatch will run until the sensor registers two entities passing it.
+- When two entities has passed the sensor, the frontend application will receive the signal that the run is over, and then it will request time taken by both participants.\
+***Note the stopwatch time on the frontend is purely visual, its the time taken on the backend side that is the actual time.***
+- The backend will return the time that it has registerd for each participant, where the fastest one is considered *Player1* and the other is *Player2*.
+- Frontend will automatically fill the "time" boxes in the submit form with the times received.
+- After the form with name, time, email and phone number is filled out and submitted it is sent to the backend where a new **User** object is created if the user wasn't registered before. **To determine if a user has played before, there is a check if the email is unique**.
