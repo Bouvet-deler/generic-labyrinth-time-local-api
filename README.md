@@ -1,1 +1,1 @@
-# generic-high-score-local-api
+# generic-labyrinth-time-local-api
