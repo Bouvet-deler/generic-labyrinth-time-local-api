@@ -70,3 +70,4 @@ https://localhost:5050/index.html
 - The backend will return the time that it has registerd for each participant, where the fastest one is considered *Player1* and the other is *Player2*.
 - Frontend will automatically fill the "time" boxes in the submit form with the times received.
 - After the form with name, time, email and phone number is filled out and submitted it is sent to the backend where a new **User** object is created if the user wasn't registered before. **To determine if a user has played before, there is a check if the email is unique**.
+- The elapsed time on the frontend will automatically reset after a completed run, and return to continuously sending get requests to the server for the next start signal.
