@@ -56,6 +56,6 @@ https://localhost:3000
 ```
 https://localhost:5050/index.html
 ```
-- The method **simulateStartSignal** will send a start signal which will cause the fronted application to start taking the time.
+- The method **simulateStartSignal** will send a start signal which will cause the fronted application to start the stopwatch.
 - The method **simulateEndTime** and **simulateEndTime2** will send the end signal, which will cause the run to end. Currently, the end times are hard coded which means that the finished run times of both players will be the the same between the runs, regardless of time elapsed.
 - Both simulateEndTime methods needs to be called to stop the frontend application from counting time.
