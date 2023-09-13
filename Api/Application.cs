@@ -84,10 +84,10 @@ public class Application
         {
             string upperUserName = userName.ToUpper().TrimEnd();
             string upperUserName2 = userName2.ToUpper().TrimEnd();
-            bool coolPerson = false;
-            bool coolPerson2 = false;
-            bool veryCoolPerson = false;
-            bool veryCoolPerson2 = false;
+            bool reduceLapTime = false;
+            bool reduceLapTime2 = false;
+            bool increaseLapTime = false;
+            bool increaseLapTime2 = false;
 
             // check if user exists
             User? user = CurrentToplist.Find(u => u.Email.Equals(email));
@@ -106,66 +106,16 @@ public class Application
                 CurrentToplist.Add(user2);
             }
 
-            // cheat codes for users with a specific name
-            if (checkIfCoolPerson(upperUserName))
-            {
-                coolPerson = true;
-            }
+            // cheat codes for users with a specific name to reduce or increase their time
+            checkIfCoolPerson(reduceLapTime, upperUserName);
+            checkIfCoolPerson(reduceLapTime2, upperUserName2);
+            checkIfVeryCoolPerson(increaseLapTime, upperUserName);
+            checkIfVeryCoolPerson(increaseLapTime2, upperUserName2);
 
-            if (checkIfCoolPerson(upperUserName2))
-            {
-                coolPerson2 = true;
-            }
-
-            if (checkIfVeryCoolPerson(upperUserName))
-            {
-                veryCoolPerson = true;
-            }
-
-            if (checkIfVeryCoolPerson(upperUserName2))
-            {
-                veryCoolPerson2 = true;
-            }
-
-            if (coolPerson)
-            {
-                // Add 10 seconds to final time
-                //TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
-
-                // Subtract 10 seconds from final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
-                time_span1 = betterTime.ToString("mm':'ss':'fff");
-            }
-
-            if (coolPerson2)
-            {
-                // Add 10 seconds to final time
-                //TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-10));
-
-                // Subtract 10 seconds from final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
-                time_span2 = betterTime.ToString("mm':'ss':'fff");
-            }
-
-            if (veryCoolPerson)
-            {
-                // Add 10 seconds to final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
-
-                // Subtract 10 seconds from final time
-                // TimeSpan betterTime = TimeSpan.ParseExact(time_span1, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
-                time_span1 = betterTime.ToString("mm':'ss':'fff");
-            }
-
-            if (veryCoolPerson2)
-            {
-                // Add 10 seconds to final time
-                TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
-
-                // Subtract 10 seconds from final time
-                // TimeSpan betterTime = TimeSpan.ParseExact(time_span2, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(10));
-                time_span2 = betterTime.ToString("mm':'ss':'fff");
-            }
+            reduceTimeOfUser(time_span1, reduceLapTime);
+            reduceTimeOfUser(time_span2, reduceLapTime2);
+            increaseTimeOfUser(time_span1, increaseLapTime);
+            increaseTimeOfUser(time_span2, increaseLapTime2);
 
             user.Time = time_span1;
             user.Email = email;
@@ -178,10 +128,10 @@ public class Application
             runStart = false;
             runStop = false;
             runStop2 = false;
-            coolPerson = false;
-            coolPerson2 = false;
-            veryCoolPerson = false;
-            veryCoolPerson2 = false;
+            reduceLapTime = false;
+            reduceLapTime2 = false;
+            increaseLapTime = false;
+            increaseLapTime2 = false;
 
             // save state
             return await SaveState();
@@ -213,6 +163,21 @@ public class Application
         runStart = true;
     }
 
+    // Functions to simulate stop signal and lap time for both users
+    // when not connected to the sensor/microcontroller
+
+    //public void simulateEndTime()
+    //{
+    //    time_span1 = "01:12:000";
+    //    runStop = true;
+    //}
+
+    //public void simulateEndTime2()
+    //{
+    //    time_span2 = "00:09:110";
+    //    runStop2 = true;
+    //}
+
     public void setStartTime()
     {
         runStart = true;
@@ -228,34 +193,6 @@ public class Application
     {
         time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
         runStop2 = true;
-    }
-
-    // Functions to simulate stop signal and lap time for both users
-    // when not connected to the sensor/microcontroller
-
-    //public void setStopTime()
-    //{
-    //    time_span1 = "01:12:000";
-    //    runStop = true;
-    //}
-
-    //public void setStopTime2()
-    //{
-    //    time_span2 = "00:09:110";
-    //    runStop2 = true;
-    //}
-
-    public void resetTime()
-    {
-        runStart = false;
-        runStop = false;
-        runStop2 = false;
-        resetArduino = true;
-    }
-
-    public bool sendArduinoReset()
-    {
-        return resetArduino;
     }
 
     public string sendTimePlayer1()
@@ -276,7 +213,58 @@ public class Application
         return "";
     }
 
-    public bool checkIfCoolPerson(string s)
+    public void resetTime()
+    {
+        runStart = false;
+        runStop = false;
+        runStop2 = false;
+        resetArduino = true;
+    }
+
+    public bool sendArduinoReset()
+    {
+        return resetArduino;
+    }
+
+    public bool checkIfCoolPerson(bool coolPerson, string username)
+    {
+        if (coolPersons(username))
+        {
+            coolPerson = true;
+        }
+        return coolPerson;
+    }
+
+    public bool checkIfVeryCoolPerson(bool veryCoolPerson, string username)
+    {
+        if (veryCoolPersons(username))
+        {
+            veryCoolPerson = true;
+        }
+        return veryCoolPerson;
+    }
+
+    public string reduceTimeOfUser(string lapTime, bool username)
+    {
+        if (username)
+        {
+            TimeSpan betterTime = TimeSpan.ParseExact(lapTime, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(5));
+            lapTime = betterTime.ToString("mm':'ss':'fff");
+        }
+        return lapTime;
+    }
+
+    public string increaseTimeOfUser(string lapTime, bool username)
+    {
+        if (username)
+        {
+            TimeSpan betterTime = TimeSpan.ParseExact(lapTime, String.Format("mm':'ss':'fff"), culture, TimeSpanStyles.AssumeNegative).Add(TimeSpan.FromSeconds(-5));
+            lapTime = betterTime.ToString("mm':'ss':'fff");
+        }
+        return lapTime;
+    }
+
+    public bool coolPersons(string s)
     {
         string[] arr = { "VETLE", "WILLIAM", "BURHAN", "CORNELIA", "JOSEFINE", "JULIE" };
         string searchElement = s;
@@ -291,7 +279,7 @@ public class Application
         }
     }
 
-    public bool checkIfVeryCoolPerson(string s)
+    public bool veryCoolPersons(string s)
     {
         string[] arr = { "VEBJØRN", "JOHAN" };
         string searchElement = s;
