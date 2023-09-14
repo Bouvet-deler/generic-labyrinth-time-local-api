@@ -187,34 +187,34 @@ public class Application
     // Functions to simulate stop signal and lap time for both users
     // when not connected to the sensor/microcontroller
 
-    public void simulateEndTime()
-    {
-        time_span1 = "01:12:000";
-        runStop = true;
-    }
+    // public void simulateEndTime()
+    // {
+    //     time_span1 = "01:12:000";
+    //     runStop = true;
+    // }
 
-    public void simulateEndTime2()
-    {
-        time_span2 = "00:09:110";
-        runStop2 = true;
-    }
+    // public void simulateEndTime2()
+    // {
+    //     time_span2 = "00:09:110";
+    //     runStop2 = true;
+    // }
 
     public void setStartTime()
     {
         runStart = true;
     }
 
-    // public void setStopTime(TimeSpan tsPlayer1)
-    // {
-    //     time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
-    //     runStop = true;
-    // }
+    public void setStopTime(TimeSpan tsPlayer1)
+    {
+        time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
+        runStop = true;
+    }
 
-    // public void setStopTime2(TimeSpan tsPlayer2)
-    // {
-    //     time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
-    //     runStop2 = true;
-    // }
+    public void setStopTime2(TimeSpan tsPlayer2)
+    {
+        time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
+        runStop2 = true;
+    }
 
     public string sendTimePlayer1()
     {
