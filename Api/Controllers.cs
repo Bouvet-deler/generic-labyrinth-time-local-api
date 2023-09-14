@@ -44,6 +44,12 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
+		app.MapPost("/DeleteTopList", IResult (string topListName, Application application) =>
+		{
+			return application.DeleteTopList(topListName);
+		}).Produces<string>(StatusCodes.Status200OK)
+		  .Produces(StatusCodes.Status400BadRequest);
+
 		app.MapPost("/NewTimeEntry", async (string username, string email, int phoneNumber, string username2, string email2, int phoneNumber2, Application application) =>
 		{
 			return await application.NewTimeEntry(username, email, phoneNumber, username2, email2, phoneNumber2);

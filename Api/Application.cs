@@ -78,6 +78,27 @@ public class Application
         }
     }
 
+    public IResult DeleteTopList(string topListName)
+    {
+        try
+        {
+            string path = $"{_path}{topListName}.txt";
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+                return Results.Ok($"{topListName} has been deleted.");
+            }
+            else
+            {
+                return Results.Problem($"Toplist with name {topListName} does not exist.");
+            }
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
     public async Task<IResult> NewTimeEntry(string userName, string email, int phoneNumber, string userName2, string email2, int phoneNumber2)
     {
         try
@@ -166,17 +187,17 @@ public class Application
     // Functions to simulate stop signal and lap time for both users
     // when not connected to the sensor/microcontroller
 
-    //public void simulateEndTime()
-    //{
-    //    time_span1 = "01:12:000";
-    //    runStop = true;
-    //}
+    public void simulateEndTime()
+    {
+        time_span1 = "01:12:000";
+        runStop = true;
+    }
 
-    //public void simulateEndTime2()
-    //{
-    //    time_span2 = "00:09:110";
-    //    runStop2 = true;
-    //}
+    public void simulateEndTime2()
+    {
+        time_span2 = "00:09:110";
+        runStop2 = true;
+    }
 
     public void setStartTime()
     {
