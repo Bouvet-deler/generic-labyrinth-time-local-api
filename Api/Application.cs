@@ -204,17 +204,17 @@ public class Application
         runStart = true;
     }
 
-    public void setStopTime(TimeSpan tsPlayer1)
-    {
-        time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
-        runStop = true;
-    }
+    // public void setStopTime(TimeSpan tsPlayer1)
+    // {
+    //     time_span1 = tsPlayer1.ToString("mm':'ss':'fff");
+    //     runStop = true;
+    // }
 
-    public void setStopTime2(TimeSpan tsPlayer2)
-    {
-        time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
-        runStop2 = true;
-    }
+    // public void setStopTime2(TimeSpan tsPlayer2)
+    // {
+    //     time_span2 = tsPlayer2.ToString("mm':'ss':'fff");
+    //     runStop2 = true;
+    // }
 
     public string sendTimePlayer1()
     {

@@ -20,11 +20,11 @@ public static class Controllers
 		}).Produces<List<User>>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
-		//app.MapGet("/GetNewUsers", IResult (Application application) =>
-		//{
-		//    return Results.Ok(application.CurrentToplistFileName.ToList());
-		//}).Produces<List<User>>(StatusCodes.Status200OK)
-		//  .Produces<string>(StatusCodes.Status400BadRequest);
+		// app.MapGet("/GetNewUsers", IResult (Application application) =>
+		// {
+		//     return Results.Ok(application.CurrentToplistFileName.ToList());
+		// }).Produces<List<User>>(StatusCodes.Status200OK)
+		//   .Produces<string>(StatusCodes.Status400BadRequest);
 
 		app.MapGet("/ListAllTopLists", IResult (Application application) =>
 		{
@@ -80,17 +80,17 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
-		//app.MapGet("/simulateEndTime", void (Application application) =>
-		//{
-		//    application.simulateEndTime();
-		//}).Produces<string>(StatusCodes.Status200OK)
-		//  .Produces<string>(StatusCodes.Status400BadRequest);
+		// app.MapGet("/simulateEndTime", void (Application application) =>
+		// {
+		//     application.simulateEndTime();
+		// }).Produces<string>(StatusCodes.Status200OK)
+		//   .Produces<string>(StatusCodes.Status400BadRequest);
 
-		//app.MapGet("/simulateEndTime2", void (Application application) =>
-		//{
-		//    application.simulateEndTime2();
-		//}).Produces<string>(StatusCodes.Status200OK)
-		//  .Produces<string>(StatusCodes.Status400BadRequest);
+		// app.MapGet("/simulateEndTime2", void (Application application) =>
+		// {
+		//     application.simulateEndTime2();
+		// }).Produces<string>(StatusCodes.Status200OK)
+		//   .Produces<string>(StatusCodes.Status400BadRequest);
 
 		app.MapGet("/sendTimePlayer1", string (Application application) =>
 		{
