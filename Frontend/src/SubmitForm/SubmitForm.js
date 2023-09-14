@@ -165,7 +165,6 @@ const SubmitForm = ({ onSubmitted }) => {
 							{errorMessage}
 						</p>
 					)}
-					{successfulPost && <p className="submit-form__success">Registered!</p>}
 					<button type="submit" className="submit-form__submit" onClick={handleSend}>
 						Send
 					</button>
