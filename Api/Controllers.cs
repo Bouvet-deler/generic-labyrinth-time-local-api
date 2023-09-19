@@ -116,6 +116,18 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
+		app.MapGet("/PickRandomWinnersFromTopTen", IResult (int numberOfWinners, Application application) =>
+		{
+			return application.pickRandomWinnersFromTopTen(numberOfWinners);
+		}).Produces<string>(StatusCodes.Status200OK)
+		  .Produces<string>(StatusCodes.Status400BadRequest);
+
+		app.MapGet("/GetNumberOfParticipants", int (Application application) =>
+		{
+			return application.getNumberOfParticipants();
+		}).Produces<string>(StatusCodes.Status200OK)
+		  .Produces<string>(StatusCodes.Status400BadRequest);
+
 		return app;
 	}
 }

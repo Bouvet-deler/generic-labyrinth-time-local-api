@@ -7,7 +7,8 @@ import Stopwatch from "./Stopwatch/Stopwatch";
 function App() {
 	const [title, setTitle] = useState("");
 	const [users, setUsers] = useState([]);
-	let [allUsers, setAllUsers] = useState([]); //usortert liste med brukere
+	const [readyToRegister, setReadyToRegister] = useState(false);
+	const [allUsers, setAllUsers] = useState([]); //usortert liste med brukere
 
 	useEffect(() => {
 		fetch("https://localhost:5050/GetCurrentTopListName", {
@@ -55,11 +56,11 @@ function App() {
 			<div style={{ marginTop: -100 }}><img src="./Bouvet_Logo_blue.png" height={100}></img></div>
 			<div className="app">
 				<header className="header">
-					<Stopwatch />
+					<Stopwatch setReadyToRegister={setReadyToRegister}/>
 				</header>
 				<div className="app-body">
 					<Leaderboard users={allUsers} />
-					<SubmitForm onSubmitted={() => handleSubmit()} />
+					<SubmitForm onSubmitted={() => handleSubmit()} readyToRegister={readyToRegister} setReadyToRegister={setReadyToRegister}/>
 				</div>
 			</div>
 			<img src="./illustration.png" style={{ marginTop: "-3rem", marginLeft: "2rem" }}></img>

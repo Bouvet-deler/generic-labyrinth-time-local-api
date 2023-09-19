@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Stopwatch() {
+function Stopwatch({ setReadyToRegister }) {
 	const [startTime, setStartTime] = useState(0);
 	const [running, setRunning] = useState(false);
 	const [p1d, setP1d] = useState(false);
@@ -126,6 +126,7 @@ function Stopwatch() {
 			//running = false;
 			setElapsedTime(0);
 			setReset(true);
+			setReadyToRegister(false);
 
 			if (!res.ok) {
 				throw res;
@@ -197,6 +198,7 @@ function Stopwatch() {
 					return "🥳🎉Second place: " + text.toString() + " 🎉🎊";
 				})
 				setLapTime2(runTime);
+				setReadyToRegister(true);
 			});
 	}
 

@@ -128,15 +128,15 @@ public class Application
             }
 
             // cheat codes for users with a specific name to reduce or increase their time
-            reduceLapTime = checkIfCoolPerson(reduceLapTime, upperUserName);
-            reduceLapTime2 = checkIfCoolPerson(reduceLapTime2, upperUserName2);
-            increaseLapTime = checkIfVeryCoolPerson(increaseLapTime, upperUserName);
-            increaseLapTime2 = checkIfVeryCoolPerson(increaseLapTime2, upperUserName2);
+            // reduceLapTime = checkIfCoolPerson(reduceLapTime, upperUserName);
+            // reduceLapTime2 = checkIfCoolPerson(reduceLapTime2, upperUserName2);
+            // increaseLapTime = checkIfVeryCoolPerson(increaseLapTime, upperUserName);
+            // increaseLapTime2 = checkIfVeryCoolPerson(increaseLapTime2, upperUserName2);
 
-            time_span1 = reduceTimeOfUser(time_span1, reduceLapTime);
-            time_span2 = reduceTimeOfUser(time_span2, reduceLapTime2);
-            time_span1 = increaseTimeOfUser(time_span1, increaseLapTime);
-            time_span2 = increaseTimeOfUser(time_span2, increaseLapTime2);
+            // time_span1 = reduceTimeOfUser(time_span1, reduceLapTime);
+            // time_span2 = reduceTimeOfUser(time_span2, reduceLapTime2);
+            // time_span1 = increaseTimeOfUser(time_span1, increaseLapTime);
+            // time_span2 = increaseTimeOfUser(time_span2, increaseLapTime2);
 
             user.Time = time_span1;
             user.Email = email;
@@ -324,7 +324,7 @@ public class Application
             var json = reader.ReadToEnd();
 
             List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
-            List<User> listWithWinners = new List<User>();
+            List<User> listWithWinners = new();
 
             int index = 0;
             while (index < numberOfWinners)
@@ -340,6 +340,42 @@ public class Application
         {
             return Results.Problem(ex.Message);
         }
+    }
+
+    public IResult pickRandomWinnersFromTopTen(int numberOfWinners)
+    {
+        try
+        {
+            Random random = new Random();
+            using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
+            var json = reader.ReadToEnd();
+
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+            List<User> listWithWinners = new();
+
+            int index = 0;
+            while (index < numberOfWinners)
+            {
+                int winner = random.Next(0, 9);
+                listWithWinners.Add(users[winner]);
+                users.RemoveAt(winner);
+                index++;
+            }
+            return Results.Ok(listWithWinners);
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
+    public int getNumberOfParticipants()
+    {
+        using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
+        var json = reader.ReadToEnd();
+        List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+
+        return users.Count();
     }
 
     private async Task<IResult> SaveState()

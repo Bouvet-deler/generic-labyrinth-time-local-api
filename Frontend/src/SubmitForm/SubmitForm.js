@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Spinner from "../Components/Spinner/Spinner";
 import "./SubmitForm.css";
 
-const SubmitForm = ({ onSubmitted }) => {
+const SubmitForm = ({ onSubmitted, readyToRegister, setReadyToRegister }) => {
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
 	const [time, setTime] = useState("");
@@ -25,6 +25,7 @@ const SubmitForm = ({ onSubmitted }) => {
 	const handleSend = (() => {
 		if (successfulPost) {
 			setIsSubmittingForm(false);
+			setReadyToRegister(false);
 		}
 	})
 
@@ -126,7 +127,7 @@ const SubmitForm = ({ onSubmitted }) => {
 		<article className="submit-form__wrapper">
 			{loading ? (
 				<Spinner />
-			) : (!isSubmittingForm ? <><button className="submit-form__submit" onClick={handleTime}>Register score</button></> : (
+			) : (!isSubmittingForm ? (readyToRegister ? <button className="submit-form__submit" onClick={handleTime}>Register score</button> : null) : (
 				<form className="submit-form" onSubmit={handleSubmit} id="submit-form" aria-describedby="submit-form__message">
 					<div className="submit-form__fieldset-container">
 						<fieldset className="submit-form__fieldset">

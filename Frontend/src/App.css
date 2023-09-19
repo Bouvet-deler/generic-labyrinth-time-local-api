@@ -16,8 +16,8 @@
 body {
     /* background: linear-gradient(180deg, #E0991D 0%, #E0A193 102.2%) no-repeat; */
     background-color: #F9EAD4;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     box-sizing: border-box;
     padding: 32px;
     padding-top: 10vh;
@@ -34,9 +34,6 @@ body {
     margin: 0.5rem;
     color: #11133C;
 }
-
-
-
 
 .button:hover {
     background-color: #f69652;
