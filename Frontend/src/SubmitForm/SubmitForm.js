@@ -172,7 +172,7 @@ const SubmitForm = ({ onSubmitted, readyToRegister, setReadyToRegister }) => {
 				</form>
 			))
 			}
-		</article >
+		</article>
 	);
 };
 
