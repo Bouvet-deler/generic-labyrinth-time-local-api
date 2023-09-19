@@ -50,7 +50,25 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces(StatusCodes.Status400BadRequest);
 
-		app.MapPost("/NewTimeEntry", async (string username, string email, int phoneNumber, string username2, string email2, int phoneNumber2, Application application) =>
+        app.MapGet("/PickRandomWinnersFromParticipants", IResult (int numberOfWinners, Application application) =>
+        {
+            return application.pickRandomWinnersFromParticipants(numberOfWinners);
+        }).Produces<string>(StatusCodes.Status200OK)
+		  .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapGet("/PickRandomWinnersFromTopTen", IResult (int numberOfWinners, Application application) =>
+        {
+            return application.pickRandomWinnersFromTopTen(numberOfWinners);
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapGet("/GetNumberOfParticipants", int (Application application) =>
+        {
+            return application.getNumberOfParticipants();
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
+        app.MapPost("/NewTimeEntry", async (string username, string email, int phoneNumber, string username2, string email2, int phoneNumber2, Application application) =>
 		{
 			return await application.NewTimeEntry(username, email, phoneNumber, username2, email2, phoneNumber2);
 		}).Produces<string>(StatusCodes.Status200OK)
@@ -107,24 +125,6 @@ public static class Controllers
 		app.MapGet("/ResetTime", void (Application application) =>
 		{
 			application.resetTime();
-		}).Produces<string>(StatusCodes.Status200OK)
-		  .Produces<string>(StatusCodes.Status400BadRequest);
-
-		app.MapGet("/PickRandomWinnersFromParticipants", IResult (int numberOfWinners, Application application) =>
-		{
-			return application.pickRandomWinnersFromParticipants(numberOfWinners);
-		}).Produces<string>(StatusCodes.Status200OK)
-		  .Produces<string>(StatusCodes.Status400BadRequest);
-
-		app.MapGet("/PickRandomWinnersFromTopTen", IResult (int numberOfWinners, Application application) =>
-		{
-			return application.pickRandomWinnersFromTopTen(numberOfWinners);
-		}).Produces<string>(StatusCodes.Status200OK)
-		  .Produces<string>(StatusCodes.Status400BadRequest);
-
-		app.MapGet("/GetNumberOfParticipants", int (Application application) =>
-		{
-			return application.getNumberOfParticipants();
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
