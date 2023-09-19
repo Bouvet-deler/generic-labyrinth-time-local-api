@@ -14,7 +14,8 @@ const SubmitForm = ({ onSubmitted, readyToRegister, setReadyToRegister }) => {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [loading, setLoading] = useState(false);
 	const [successfulPost, setSuccessfulPost] = useState(false);
-	const [isSubmittingForm, setIsSubmittingForm] = useState(false);
+    const [isSubmittingForm, setIsSubmittingForm] = useState(false);
+    
 
 	const handleTime = (() => {
 		setIsSubmittingForm(true);
