@@ -98,7 +98,7 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
-		app.MapGet("/simulateStartTime", void (Application application) =>
+		app.MapGet("/simulateStartSignal", void (Application application) =>
 		{
 			application.simulateStartTime();
 		}).Produces<string>(StatusCodes.Status200OK)
