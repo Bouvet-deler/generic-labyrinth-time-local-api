@@ -74,7 +74,7 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/NewTimeEntry", async (string username, string email, int phoneNumber, string username2, string email2, int phoneNumber2, Application application) =>
+        app.MapPost("/NewTimeEntry", async (string username, string email, string phoneNumber, string username2, string email2, string phoneNumber2, Application application) =>
 		{
 			return await application.NewTimeEntry(username, email, phoneNumber, username2, email2, phoneNumber2);
 		}).Produces<string>(StatusCodes.Status200OK)

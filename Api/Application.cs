@@ -99,7 +99,7 @@ public class Application
         }
     }
 
-    public async Task<IResult> NewTimeEntry(string userName, string email, int phoneNumber, string userName2, string email2, int phoneNumber2)
+    public async Task<IResult> NewTimeEntry(string userName, string email, string phoneNumber, string userName2, string email2, string phoneNumber2)
     {
         try
         {
