@@ -62,6 +62,12 @@ public static class Controllers
         }).Produces<string>(StatusCodes.Status200OK)
           .Produces<string>(StatusCodes.Status400BadRequest);
 
+		app.MapGet("/PickRandomXWinnersFromTopX", IResult (int numberOfWinners, int topX, Application application) =>
+        {
+            return application.pickRandomXWinnersFromTopX(numberOfWinners, topX);
+        }).Produces<string>(StatusCodes.Status200OK)
+          .Produces<string>(StatusCodes.Status400BadRequest);
+
         app.MapGet("/GetNumberOfParticipants", int (Application application) =>
         {
             return application.getNumberOfParticipants();
@@ -98,17 +104,17 @@ public static class Controllers
 		}).Produces<string>(StatusCodes.Status200OK)
 		  .Produces<string>(StatusCodes.Status400BadRequest);
 
-		// app.MapGet("/simulateEndTime", void (Application application) =>
-		// {
-		//     application.simulateEndTime();
-		// }).Produces<string>(StatusCodes.Status200OK)
-		//   .Produces<string>(StatusCodes.Status400BadRequest);
+		app.MapGet("/simulateEndTime", void (Application application) =>
+		{
+		    application.simulateEndTime();
+		}).Produces<string>(StatusCodes.Status200OK)
+		  .Produces<string>(StatusCodes.Status400BadRequest);
 
-		// app.MapGet("/simulateEndTime2", void (Application application) =>
-		// {
-		//     application.simulateEndTime2();
-		// }).Produces<string>(StatusCodes.Status200OK)
-		//   .Produces<string>(StatusCodes.Status400BadRequest);
+		app.MapGet("/simulateEndTime2", void (Application application) =>
+		{
+		    application.simulateEndTime2();
+		}).Produces<string>(StatusCodes.Status200OK)
+		  .Produces<string>(StatusCodes.Status400BadRequest);
 
 		app.MapGet("/sendTimePlayer1", string (Application application) =>
 		{

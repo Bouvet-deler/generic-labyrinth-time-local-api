@@ -187,17 +187,17 @@ public class Application
     // Functions to simulate stop signal and lap time for both users
     // when not connected to the sensor/microcontroller
 
-    // public void simulateEndTime()
-    // {
-    //     time_span1 = "01:12:000";
-    //     runStop = true;
-    // }
+    public void simulateEndTime()
+    {
+        time_span1 = "01:12:000";
+        runStop = true;
+    }
 
-    // public void simulateEndTime2()
-    // {
-    //     time_span2 = "00:09:110";
-    //     runStop2 = true;
-    // }
+    public void simulateEndTime2()
+    {
+        time_span2 = "00:09:110";
+        runStop2 = true;
+    }
 
     public void setStartTime()
     {
@@ -368,6 +368,33 @@ public class Application
             return Results.Problem(ex.Message);
         }
     }
+    public IResult pickRandomXWinnersFromTopX(int numberOfWinners, int topX)
+    {
+        try
+        {
+            Random random = new Random();
+            using StreamReader reader = new($"{_path}{CurrentTopListFileName}.txt");
+            var json = reader.ReadToEnd();
+
+            List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+            List<User> listWithWinners = new();
+
+            int index = 0;
+            while (index < numberOfWinners)
+            {
+                int winner = random.Next(0, topX - 1);
+                listWithWinners.Add(users[winner]);
+                users.RemoveAt(winner);
+                index++;
+            }
+            return Results.Ok(listWithWinners);
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
 
     public int getNumberOfParticipants()
     {
