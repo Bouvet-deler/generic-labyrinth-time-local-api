@@ -2,7 +2,8 @@
 - Either run the solution by clicking on the green arrow in visual studio or use the command **"dotnet run"** in the terminal
 - Run the frontend as well, and click the **Start** button. This will make the webpage wait for a start signal from the server, which is triggered by pressing the yellow button in the room.
 - The stopwatch will automatically reset itself after a finished run (the sensor registers two entities passing it), and begin waiting for the next start signal\
-***Note the stopwatch time on the webpage is purely visual, it is the time taken on the backend that is the actual time.***
+***Note the stopwatch time on the webpage is purely visual, it is the time taken on the backend that is the actual time.***\
+***ALSO: You might need to change the variable **" _serialPort.PortName"** in **"HardwereBackgroundService"** to the the COM slot that you are using. On windows you can go to **"Device manager"** and see which COM slot is being used***
   
 # How to test without the Arduino
 ## Setting up
